@@ -7,6 +7,7 @@ class AuthSession {
   static Future<void> init() async {
     final String? token = await sl<SecureStorageService>().getToken();
 
-    isLoggedIn = token != null && token.isNotEmpty;
+    isLoggedIn = true;
+    // isLoggedIn = token != null && token.isNotEmpty;
   }
 }

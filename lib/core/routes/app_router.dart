@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/signin_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
+import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../app_config/auth_session.dart';
 import 'route_names.dart';
 
@@ -34,9 +35,9 @@ class AppRouter {
       ),
       GoRoute(
         path: '/dashboard',
-        name: AppRouteNames.signup,
+        name: AppRouteNames.dashboard,
         builder: (BuildContext context, GoRouterState state) =>
-            const SignUpPage(),
+            const DashboardScreen(),
       ),
     ],
 
@@ -59,7 +60,7 @@ class AppRouter {
       }
 
       if (loggedIn && loggingIn) {
-        return '/home';
+        return '/dashboard';
       }
 
       return null;
