@@ -13,10 +13,11 @@ class BuildActionPanel extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
+          spacing: 12,
           children: <Widget>[
             const AppText('Quick Actions', variant: TextVariant.h3),
-            const SizedBox(height: 20),
+            const SizedBox(height: 8),
             _BuildActionButton(
               label: 'Apply Leave',
               icon: Icons.add,
@@ -25,8 +26,15 @@ class BuildActionPanel extends StatelessWidget {
                 context.pushNamed(AppRouteNames.applyLeave);
               },
             ),
+            _BuildActionButton(
+              label: 'Leave History',
+              icon: Icons.history,
+              onPressed: () {
+                //TODO: Navigate to leave history page;
+                context.pushNamed(AppRouteNames.leaveHistory);
+              },
+            ),
 
-            const SizedBox(height: 12),
             _BuildActionButton(
               label: 'View Payslip',
               icon: Icons.receipt_long,
@@ -35,7 +43,6 @@ class BuildActionPanel extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 12),
             _BuildActionButton(
               label: 'View Profile',
               icon: Icons.person_outline,
