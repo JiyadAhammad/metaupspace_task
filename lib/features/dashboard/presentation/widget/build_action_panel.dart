@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/widgets/custom_text.dart';
 
 class BuildActionPanel extends StatelessWidget {
@@ -20,6 +22,7 @@ class BuildActionPanel extends StatelessWidget {
               icon: Icons.add,
               onPressed: () {
                 //TODO: Navigate to Apply leave page;
+                context.pushNamed(AppRouteNames.applyLeave);
               },
             ),
 
