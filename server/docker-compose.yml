@@ -1,0 +1,16 @@
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: metaup_space
+    ports:
+      - "8000:8000"
+    image: metaup_space_app
+    volumes:
+      - .:/app
+    env_file:
+      - .env.dev
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
