@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app.api.v1.router import api_router
+
 app = FastAPI(
     title="Meta up space API",
     description="Backend API for Meta up space mobile application",
@@ -39,7 +41,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     )
 
 
-# app.include_router(api_router, prefix="/api/v1")
+app.include_router(api_router, prefix="/api/v1")
 
 
 @app.get("/")
