@@ -1,8 +1,9 @@
 import '../../../../core/storage/secure_storage_service.dart';
+import '../models/response_model/auth_response_model.dart';
 
 abstract class IAuthLocalDatasource {
-  Future<void> saveToken(String token);
-  Future<String?> getToken();
+  Future<void> saveToken(AuthResponseModel token);
+  Future<AuthResponseModel?> getToken();
 }
 
 class AuthLocalDatasourceImpl implements IAuthLocalDatasource {
@@ -10,12 +11,12 @@ class AuthLocalDatasourceImpl implements IAuthLocalDatasource {
   final SecureStorageService storage;
 
   @override
-  Future<void> saveToken(String token) {
+  Future<void> saveToken(AuthResponseModel token) {
     return storage.saveToken(token);
   }
 
   @override
-  Future<String?> getToken() {
+  Future<AuthResponseModel?> getToken() {
     return storage.getToken();
   }
 }

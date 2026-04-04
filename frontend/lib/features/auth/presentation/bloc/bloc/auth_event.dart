@@ -11,5 +11,9 @@ abstract class AuthEvent with _$AuthEvent {
     required String email,
     required String password,
     required String fullName,
+    required String department,
+    required String role,
+    required String manager,
+    required DateTime joiningDate,
   }) = _RegisterEvent;
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignUpRequest {
 
- String get email;@JsonKey(name: 'full_name') String get fullName; String get password; String get device;
+ String get email;@JsonKey(name: 'full_name') String get fullName; String get password; String get department; String get role; String get manager;@JsonKey(name: 'joining_date') DateTime get joiningDate; String get device;
 /// Create a copy of SignUpRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SignUpRequestCopyWith<SignUpRequest> get copyWith => _$SignUpRequestCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.password, password) || other.password == password)&&(identical(other.device, device) || other.device == device));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.password, password) || other.password == password)&&(identical(other.department, department) || other.department == department)&&(identical(other.role, role) || other.role == role)&&(identical(other.manager, manager) || other.manager == manager)&&(identical(other.joiningDate, joiningDate) || other.joiningDate == joiningDate)&&(identical(other.device, device) || other.device == device));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,fullName,password,device);
+int get hashCode => Object.hash(runtimeType,email,fullName,password,department,role,manager,joiningDate,device);
 
 @override
 String toString() {
-  return 'SignUpRequest(email: $email, fullName: $fullName, password: $password, device: $device)';
+  return 'SignUpRequest(email: $email, fullName: $fullName, password: $password, department: $department, role: $role, manager: $manager, joiningDate: $joiningDate, device: $device)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SignUpRequestCopyWith<$Res>  {
   factory $SignUpRequestCopyWith(SignUpRequest value, $Res Function(SignUpRequest) _then) = _$SignUpRequestCopyWithImpl;
 @useResult
 $Res call({
- String email,@JsonKey(name: 'full_name') String fullName, String password, String device
+ String email,@JsonKey(name: 'full_name') String fullName, String password, String department, String role, String manager,@JsonKey(name: 'joining_date') DateTime joiningDate, String device
 });
 
 
@@ -65,12 +65,16 @@ class _$SignUpRequestCopyWithImpl<$Res>
 
 /// Create a copy of SignUpRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? fullName = null,Object? password = null,Object? device = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? fullName = null,Object? password = null,Object? department = null,Object? role = null,Object? manager = null,Object? joiningDate = null,Object? device = null,}) {
   return _then(_self.copyWith(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
+as String,department: null == department ? _self.department : department // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,manager: null == manager ? _self.manager : manager // ignore: cast_nullable_to_non_nullable
+as String,joiningDate: null == joiningDate ? _self.joiningDate : joiningDate // ignore: cast_nullable_to_non_nullable
+as DateTime,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -156,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String device)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignUpRequest() when $default != null:
-return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
+return $default(_that.email,_that.fullName,_that.password,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device);case _:
   return orElse();
 
 }
@@ -177,10 +181,10 @@ return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String device)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device)  $default,) {final _that = this;
 switch (_that) {
 case _SignUpRequest():
-return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
+return $default(_that.email,_that.fullName,_that.password,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +201,10 @@ return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String device)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email, @JsonKey(name: 'full_name')  String fullName,  String password,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device)?  $default,) {final _that = this;
 switch (_that) {
 case _SignUpRequest() when $default != null:
-return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
+return $default(_that.email,_that.fullName,_that.password,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device);case _:
   return null;
 
 }
@@ -212,12 +216,16 @@ return $default(_that.email,_that.fullName,_that.password,_that.device);case _:
 @JsonSerializable()
 
 class _SignUpRequest implements SignUpRequest {
-  const _SignUpRequest({required this.email, @JsonKey(name: 'full_name') required this.fullName, required this.password, required this.device});
+  const _SignUpRequest({required this.email, @JsonKey(name: 'full_name') required this.fullName, required this.password, required this.department, required this.role, required this.manager, @JsonKey(name: 'joining_date') required this.joiningDate, required this.device});
   factory _SignUpRequest.fromJson(Map<String, dynamic> json) => _$SignUpRequestFromJson(json);
 
 @override final  String email;
 @override@JsonKey(name: 'full_name') final  String fullName;
 @override final  String password;
+@override final  String department;
+@override final  String role;
+@override final  String manager;
+@override@JsonKey(name: 'joining_date') final  DateTime joiningDate;
 @override final  String device;
 
 /// Create a copy of SignUpRequest
@@ -233,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.password, password) || other.password == password)&&(identical(other.device, device) || other.device == device));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.password, password) || other.password == password)&&(identical(other.department, department) || other.department == department)&&(identical(other.role, role) || other.role == role)&&(identical(other.manager, manager) || other.manager == manager)&&(identical(other.joiningDate, joiningDate) || other.joiningDate == joiningDate)&&(identical(other.device, device) || other.device == device));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,fullName,password,device);
+int get hashCode => Object.hash(runtimeType,email,fullName,password,department,role,manager,joiningDate,device);
 
 @override
 String toString() {
-  return 'SignUpRequest(email: $email, fullName: $fullName, password: $password, device: $device)';
+  return 'SignUpRequest(email: $email, fullName: $fullName, password: $password, department: $department, role: $role, manager: $manager, joiningDate: $joiningDate, device: $device)';
 }
 
 
@@ -253,7 +261,7 @@ abstract mixin class _$SignUpRequestCopyWith<$Res> implements $SignUpRequestCopy
   factory _$SignUpRequestCopyWith(_SignUpRequest value, $Res Function(_SignUpRequest) _then) = __$SignUpRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String email,@JsonKey(name: 'full_name') String fullName, String password, String device
+ String email,@JsonKey(name: 'full_name') String fullName, String password, String department, String role, String manager,@JsonKey(name: 'joining_date') DateTime joiningDate, String device
 });
 
 
@@ -270,12 +278,16 @@ class __$SignUpRequestCopyWithImpl<$Res>
 
 /// Create a copy of SignUpRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? fullName = null,Object? password = null,Object? device = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? fullName = null,Object? password = null,Object? department = null,Object? role = null,Object? manager = null,Object? joiningDate = null,Object? device = null,}) {
   return _then(_SignUpRequest(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
+as String,department: null == department ? _self.department : department // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,manager: null == manager ? _self.manager : manager // ignore: cast_nullable_to_non_nullable
+as String,joiningDate: null == joiningDate ? _self.joiningDate : joiningDate // ignore: cast_nullable_to_non_nullable
+as DateTime,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

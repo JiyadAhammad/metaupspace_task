@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../../features/auth/data/datasource/auth_local_datasource.dart';
+import '../../../features/auth/data/models/response_model/auth_response_model.dart';
 import '../endpoints/auth_endpoints.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -17,10 +18,14 @@ class AuthInterceptor extends Interceptor {
         options.path.contains(AuthEndpoints.register)) {
       return handler.next(options);
     }
-    final String? token = await tokenStorage.getToken();
+    final AuthResponseModel? logionDetails = await tokenStorage.getToken();
 
-    if (token != null && token.isNotEmpty) {
-      options.headers['Authorization'] = 'Bearer $token';
+    final String? accessToken = logionDetails?.accessToken;
+
+    if (logionDetails != null &&
+        accessToken != null &&
+        accessToken.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $accessToken';
     }
 
     super.onRequest(options, handler);

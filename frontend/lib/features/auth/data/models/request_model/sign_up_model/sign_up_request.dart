@@ -9,6 +9,10 @@ abstract class SignUpRequest with _$SignUpRequest {
     required String email,
     @JsonKey(name: 'full_name') required String fullName,
     required String password,
+    required String department,
+    required String role,
+    required String manager,
+    @JsonKey(name: 'joining_date') required DateTime joiningDate,
     required String device,
   }) = _SignUpRequest;
 

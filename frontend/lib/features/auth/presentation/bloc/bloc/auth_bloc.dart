@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
@@ -70,6 +71,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         password: event.password,
         fullName: event.fullName,
+        department: event.department,
+        role: event.role,
+        manager: event.manager,
+        joiningDate: event.joiningDate,
+        device: Platform.isAndroid ? 'android' : 'ios',
       ),
     );
 

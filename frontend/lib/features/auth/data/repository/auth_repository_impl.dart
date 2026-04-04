@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -33,12 +31,7 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<Either<Failure, AuthResult>> signUp(SignUpParams params) async {
-    final SignUpRequest request = SignUpRequest(
-      fullName: params.fullName,
-      email: params.email,
-      password: params.password,
-      device: Platform.isAndroid ? 'android' : 'ios',
-    );
+    final SignUpRequest request = params.toRequest();
 
     final ApiResponse<AuthResponseModel> result = await remote.signUp(request);
     return _handleAuthResponse(result);
@@ -51,7 +44,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       return left(AuthFailure(result.message ?? 'Authentication failed'));
     }
 
-    await local.saveToken(result.data!.accessToken);
+    await local.saveToken(result.data!);
 
     final AuthResult authResult = AuthResult(
       user: result.data!.toEntity(),

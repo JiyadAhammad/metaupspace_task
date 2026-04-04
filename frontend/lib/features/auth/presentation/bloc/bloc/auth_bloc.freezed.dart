@@ -154,11 +154,11 @@ return register(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String email,  String password)?  login,TResult Function( String email,  String password,  String fullName)?  register,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String email,  String password)?  login,TResult Function( String email,  String password,  String fullName,  String department,  String role,  String manager,  DateTime joiningDate)?  register,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginEvent() when login != null:
 return login(_that.email,_that.password);case _RegisterEvent() when register != null:
-return register(_that.email,_that.password,_that.fullName);case _:
+return register(_that.email,_that.password,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate);case _:
   return orElse();
 
 }
@@ -176,11 +176,11 @@ return register(_that.email,_that.password,_that.fullName);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String email,  String password)  login,required TResult Function( String email,  String password,  String fullName)  register,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String email,  String password)  login,required TResult Function( String email,  String password,  String fullName,  String department,  String role,  String manager,  DateTime joiningDate)  register,}) {final _that = this;
 switch (_that) {
 case _LoginEvent():
 return login(_that.email,_that.password);case _RegisterEvent():
-return register(_that.email,_that.password,_that.fullName);case _:
+return register(_that.email,_that.password,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,11 +197,11 @@ return register(_that.email,_that.password,_that.fullName);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String email,  String password)?  login,TResult? Function( String email,  String password,  String fullName)?  register,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String email,  String password)?  login,TResult? Function( String email,  String password,  String fullName,  String department,  String role,  String manager,  DateTime joiningDate)?  register,}) {final _that = this;
 switch (_that) {
 case _LoginEvent() when login != null:
 return login(_that.email,_that.password);case _RegisterEvent() when register != null:
-return register(_that.email,_that.password,_that.fullName);case _:
+return register(_that.email,_that.password,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate);case _:
   return null;
 
 }
@@ -281,12 +281,16 @@ as String,
 
 
 class _RegisterEvent implements AuthEvent {
-  const _RegisterEvent({required this.email, required this.password, required this.fullName});
+  const _RegisterEvent({required this.email, required this.password, required this.fullName, required this.department, required this.role, required this.manager, required this.joiningDate});
   
 
 @override final  String email;
 @override final  String password;
  final  String fullName;
+ final  String department;
+ final  String role;
+ final  String manager;
+ final  DateTime joiningDate;
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -298,16 +302,16 @@ _$RegisterEventCopyWith<_RegisterEvent> get copyWith => __$RegisterEventCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterEvent&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.fullName, fullName) || other.fullName == fullName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterEvent&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.department, department) || other.department == department)&&(identical(other.role, role) || other.role == role)&&(identical(other.manager, manager) || other.manager == manager)&&(identical(other.joiningDate, joiningDate) || other.joiningDate == joiningDate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,fullName);
+int get hashCode => Object.hash(runtimeType,email,password,fullName,department,role,manager,joiningDate);
 
 @override
 String toString() {
-  return 'AuthEvent.register(email: $email, password: $password, fullName: $fullName)';
+  return 'AuthEvent.register(email: $email, password: $password, fullName: $fullName, department: $department, role: $role, manager: $manager, joiningDate: $joiningDate)';
 }
 
 
@@ -318,7 +322,7 @@ abstract mixin class _$RegisterEventCopyWith<$Res> implements $AuthEventCopyWith
   factory _$RegisterEventCopyWith(_RegisterEvent value, $Res Function(_RegisterEvent) _then) = __$RegisterEventCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, String fullName
+ String email, String password, String fullName, String department, String role, String manager, DateTime joiningDate
 });
 
 
@@ -335,12 +339,16 @@ class __$RegisterEventCopyWithImpl<$Res>
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? fullName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? fullName = null,Object? department = null,Object? role = null,Object? manager = null,Object? joiningDate = null,}) {
   return _then(_RegisterEvent(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,department: null == department ? _self.department : department // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,manager: null == manager ? _self.manager : manager // ignore: cast_nullable_to_non_nullable
+as String,joiningDate: null == joiningDate ? _self.joiningDate : joiningDate // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 

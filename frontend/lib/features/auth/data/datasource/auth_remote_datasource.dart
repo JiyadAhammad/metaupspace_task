@@ -37,13 +37,6 @@ class AuthRemoteDatasourceImpl extends BaseRemoteDataSourceImpl
 
   @override
   Future<ApiResponse<AuthResponseModel>> signUp(SignUpRequest request) async {
-    // final Response<dynamic> response = await dio.post(
-    //   AuthEndpoints.register,
-    //   data: request.toJson(),
-    // );
-
-    // return AuthResponseModel.fromJson(response.data as Map<String, dynamic>);
-
     return safeApiCall(() async {
       final Response<dynamic> res = await dio.post(
         AuthEndpoints.register,

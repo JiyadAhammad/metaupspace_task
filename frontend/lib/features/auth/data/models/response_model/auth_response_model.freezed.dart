@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthResponseModel {
 
-@JsonKey(name: 'user_id') String get userId; String get email;@JsonKey(name: 'full_name') String get fullName; String get device;@JsonKey(name: 'access_token') String get accessToken;@JsonKey(name: 'refresh_token') String get refreshToken;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
+@JsonKey(name: 'user_id') String get userId;@JsonKey(name: 'is_active_user') bool get isActiveUser; String get email;@JsonKey(name: 'full_name') String get fullName; String get department; String get role; String get manager;@JsonKey(name: 'joining_date') DateTime get joiningDate; String get device;@JsonKey(name: 'access_token') String get accessToken;@JsonKey(name: 'refresh_token') String get refreshToken;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
 /// Create a copy of AuthResponseModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AuthResponseModelCopyWith<AuthResponseModel> get copyWith => _$AuthResponseMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResponseModel&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.device, device) || other.device == device)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResponseModel&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.isActiveUser, isActiveUser) || other.isActiveUser == isActiveUser)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.department, department) || other.department == department)&&(identical(other.role, role) || other.role == role)&&(identical(other.manager, manager) || other.manager == manager)&&(identical(other.joiningDate, joiningDate) || other.joiningDate == joiningDate)&&(identical(other.device, device) || other.device == device)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,email,fullName,device,accessToken,refreshToken,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,userId,isActiveUser,email,fullName,department,role,manager,joiningDate,device,accessToken,refreshToken,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AuthResponseModel(userId: $userId, email: $email, fullName: $fullName, device: $device, accessToken: $accessToken, refreshToken: $refreshToken, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AuthResponseModel(userId: $userId, isActiveUser: $isActiveUser, email: $email, fullName: $fullName, department: $department, role: $role, manager: $manager, joiningDate: $joiningDate, device: $device, accessToken: $accessToken, refreshToken: $refreshToken, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AuthResponseModelCopyWith<$Res>  {
   factory $AuthResponseModelCopyWith(AuthResponseModel value, $Res Function(AuthResponseModel) _then) = _$AuthResponseModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'user_id') String userId, String email,@JsonKey(name: 'full_name') String fullName, String device,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+@JsonKey(name: 'user_id') String userId,@JsonKey(name: 'is_active_user') bool isActiveUser, String email,@JsonKey(name: 'full_name') String fullName, String department, String role, String manager,@JsonKey(name: 'joining_date') DateTime joiningDate, String device,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -65,12 +65,17 @@ class _$AuthResponseModelCopyWithImpl<$Res>
 
 /// Create a copy of AuthResponseModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? email = null,Object? fullName = null,Object? device = null,Object? accessToken = null,Object? refreshToken = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? isActiveUser = null,Object? email = null,Object? fullName = null,Object? department = null,Object? role = null,Object? manager = null,Object? joiningDate = null,Object? device = null,Object? accessToken = null,Object? refreshToken = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,isActiveUser: null == isActiveUser ? _self.isActiveUser : isActiveUser // ignore: cast_nullable_to_non_nullable
+as bool,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
+as String,department: null == department ? _self.department : department // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,manager: null == manager ? _self.manager : manager // ignore: cast_nullable_to_non_nullable
+as String,joiningDate: null == joiningDate ? _self.joiningDate : joiningDate // ignore: cast_nullable_to_non_nullable
+as DateTime,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
 as String,accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -160,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'user_id')  String userId,  String email, @JsonKey(name: 'full_name')  String fullName,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'is_active_user')  bool isActiveUser,  String email, @JsonKey(name: 'full_name')  String fullName,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthResponseModel() when $default != null:
-return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.userId,_that.isActiveUser,_that.email,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -181,10 +186,10 @@ return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.acces
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'user_id')  String userId,  String email, @JsonKey(name: 'full_name')  String fullName,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'is_active_user')  bool isActiveUser,  String email, @JsonKey(name: 'full_name')  String fullName,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _AuthResponseModel():
-return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.userId,_that.isActiveUser,_that.email,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +206,10 @@ return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.acces
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'user_id')  String userId,  String email, @JsonKey(name: 'full_name')  String fullName,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'is_active_user')  bool isActiveUser,  String email, @JsonKey(name: 'full_name')  String fullName,  String department,  String role,  String manager, @JsonKey(name: 'joining_date')  DateTime joiningDate,  String device, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthResponseModel() when $default != null:
-return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.userId,_that.isActiveUser,_that.email,_that.fullName,_that.department,_that.role,_that.manager,_that.joiningDate,_that.device,_that.accessToken,_that.refreshToken,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -216,12 +221,17 @@ return $default(_that.userId,_that.email,_that.fullName,_that.device,_that.acces
 @JsonSerializable()
 
 class _AuthResponseModel implements AuthResponseModel {
-  const _AuthResponseModel({@JsonKey(name: 'user_id') required this.userId, required this.email, @JsonKey(name: 'full_name') required this.fullName, required this.device, @JsonKey(name: 'access_token') required this.accessToken, @JsonKey(name: 'refresh_token') required this.refreshToken, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
+  const _AuthResponseModel({@JsonKey(name: 'user_id') required this.userId, @JsonKey(name: 'is_active_user') required this.isActiveUser, required this.email, @JsonKey(name: 'full_name') required this.fullName, required this.department, required this.role, required this.manager, @JsonKey(name: 'joining_date') required this.joiningDate, required this.device, @JsonKey(name: 'access_token') required this.accessToken, @JsonKey(name: 'refresh_token') required this.refreshToken, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _AuthResponseModel.fromJson(Map<String, dynamic> json) => _$AuthResponseModelFromJson(json);
 
 @override@JsonKey(name: 'user_id') final  String userId;
+@override@JsonKey(name: 'is_active_user') final  bool isActiveUser;
 @override final  String email;
 @override@JsonKey(name: 'full_name') final  String fullName;
+@override final  String department;
+@override final  String role;
+@override final  String manager;
+@override@JsonKey(name: 'joining_date') final  DateTime joiningDate;
 @override final  String device;
 @override@JsonKey(name: 'access_token') final  String accessToken;
 @override@JsonKey(name: 'refresh_token') final  String refreshToken;
@@ -241,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResponseModel&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.device, device) || other.device == device)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResponseModel&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.isActiveUser, isActiveUser) || other.isActiveUser == isActiveUser)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.department, department) || other.department == department)&&(identical(other.role, role) || other.role == role)&&(identical(other.manager, manager) || other.manager == manager)&&(identical(other.joiningDate, joiningDate) || other.joiningDate == joiningDate)&&(identical(other.device, device) || other.device == device)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,email,fullName,device,accessToken,refreshToken,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,userId,isActiveUser,email,fullName,department,role,manager,joiningDate,device,accessToken,refreshToken,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AuthResponseModel(userId: $userId, email: $email, fullName: $fullName, device: $device, accessToken: $accessToken, refreshToken: $refreshToken, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AuthResponseModel(userId: $userId, isActiveUser: $isActiveUser, email: $email, fullName: $fullName, department: $department, role: $role, manager: $manager, joiningDate: $joiningDate, device: $device, accessToken: $accessToken, refreshToken: $refreshToken, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -261,7 +271,7 @@ abstract mixin class _$AuthResponseModelCopyWith<$Res> implements $AuthResponseM
   factory _$AuthResponseModelCopyWith(_AuthResponseModel value, $Res Function(_AuthResponseModel) _then) = __$AuthResponseModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'user_id') String userId, String email,@JsonKey(name: 'full_name') String fullName, String device,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+@JsonKey(name: 'user_id') String userId,@JsonKey(name: 'is_active_user') bool isActiveUser, String email,@JsonKey(name: 'full_name') String fullName, String department, String role, String manager,@JsonKey(name: 'joining_date') DateTime joiningDate, String device,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -278,12 +288,17 @@ class __$AuthResponseModelCopyWithImpl<$Res>
 
 /// Create a copy of AuthResponseModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? email = null,Object? fullName = null,Object? device = null,Object? accessToken = null,Object? refreshToken = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? isActiveUser = null,Object? email = null,Object? fullName = null,Object? department = null,Object? role = null,Object? manager = null,Object? joiningDate = null,Object? device = null,Object? accessToken = null,Object? refreshToken = null,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_AuthResponseModel(
 userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,isActiveUser: null == isActiveUser ? _self.isActiveUser : isActiveUser // ignore: cast_nullable_to_non_nullable
+as bool,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
+as String,department: null == department ? _self.department : department // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,manager: null == manager ? _self.manager : manager // ignore: cast_nullable_to_non_nullable
+as String,joiningDate: null == joiningDate ? _self.joiningDate : joiningDate // ignore: cast_nullable_to_non_nullable
+as DateTime,device: null == device ? _self.device : device // ignore: cast_nullable_to_non_nullable
 as String,accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
