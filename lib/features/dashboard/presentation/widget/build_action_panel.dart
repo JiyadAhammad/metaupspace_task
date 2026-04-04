@@ -49,6 +49,7 @@ class BuildActionPanel extends StatelessWidget {
               icon: Icons.person_outline,
               onPressed: () {
                 //TODO: Navigate to View Profile page;
+                context.pushNamed(AppRouteNames.profile);
               },
             ),
           ],
