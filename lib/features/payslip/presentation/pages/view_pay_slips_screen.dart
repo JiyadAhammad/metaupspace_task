@@ -4,13 +4,13 @@ import '../../../../core/constants/app_const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
 
-class LeaveHistoryScreen extends StatelessWidget {
-  const LeaveHistoryScreen({super.key});
+class ViewPaySlipsScreen extends StatelessWidget {
+  const ViewPaySlipsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBar(title: 'Leave History'),
+      appBar: const AppAppBar(title: 'Payslips'),
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 800),
@@ -18,15 +18,15 @@ class LeaveHistoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const AppText('Applied Leaves'),
+              const AppText('Recent Payslips'),
               const SizedBox(height: 24),
               Expanded(
                 child: ListView.separated(
-                  itemCount: 4,
+                  itemCount: 6,
                   separatorBuilder: (BuildContext context, int index) =>
                       const SizedBox(height: 16),
                   itemBuilder: (BuildContext context, int index) {
-                    final Map<String, Object> leave = AppConst.leaves[index];
+                    final String month = AppConst.paySlip[index];
                     return Card(
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -42,26 +42,30 @@ class LeaveHistoryScreen extends StatelessWidget {
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
-                            Icons.beach_access,
+                            Icons.receipt_long,
                             color: Theme.of(context).primaryColor,
                           ),
                         ),
-                        title: AppText(leave['type']! as String),
-                        subtitle: AppText(leave['dates']! as String),
-                        trailing: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: (leave['color']! as Color).withValues(
-                              alpha: 0.1,
+                        title: AppText(month),
+                        subtitle: AppText(
+                          'ID: PAY-${1000 - index} • Status: Processed',
+                        ),
+                        trailing: ElevatedButton.icon(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Downloading $month Payslip...'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.download_rounded, size: 18),
+                          label: const Text('Download'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
                             ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: AppText(
-                            leave['status']! as String,
-                            color: leave['color']! as Color,
                           ),
                         ),
                       ),

@@ -40,6 +40,7 @@ class BuildActionPanel extends StatelessWidget {
               icon: Icons.receipt_long,
               onPressed: () {
                 //TODO: Navigate to View Slip page;
+                context.pushNamed(AppRouteNames.paySlip);
               },
             ),
 

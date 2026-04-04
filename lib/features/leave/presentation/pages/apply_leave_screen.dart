@@ -5,8 +5,8 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 
-class ApplyLeavePage extends StatelessWidget {
-  const ApplyLeavePage({super.key});
+class ApplyLeaveScreen extends StatelessWidget {
+  const ApplyLeaveScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

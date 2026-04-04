@@ -41,4 +41,13 @@ class AppConst {
       'color': Colors.red,
     },
   ];
+
+  static const List<String> paySlip = <String>[
+    'March 2026',
+    'February 2026',
+    'January 2026',
+    'December 2025',
+    'November 2025',
+    'October 2025',
+  ];
 }
