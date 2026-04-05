@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/ui/greeting_util.dart';
 import '../../../../core/widgets/custom_text.dart';
 
 class GreetingHeader extends StatelessWidget {
@@ -20,7 +21,10 @@ class GreetingHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              AppText('Good Morning, $name!', variant: TextVariant.h1),
+              AppText(
+                '${GreetingUtil.getGreeting()}, $name!',
+                variant: TextVariant.h1,
+              ),
               const SizedBox(height: 4),
               AppText(role, variant: TextVariant.h3),
             ],

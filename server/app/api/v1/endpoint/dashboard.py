@@ -18,6 +18,6 @@ async def get_dashboard(
 
     dashboard_data = await get_dashboard_data(user_id=user.id)
     return SuccessResponse(
-        message="Holidays fetched successfully",
+        message="Dashboard fetched successfully",
         data=dashboard_data,
     )

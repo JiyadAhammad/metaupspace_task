@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/signin_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
+import '../../features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../../features/leave/presentation/pages/apply_leave_screen.dart';
 import '../../features/leave/presentation/pages/leave_history_screen.dart';
@@ -42,7 +44,10 @@ class AppRouter {
         path: '/dashboard',
         name: AppRouteNames.dashboard,
         builder: (BuildContext context, GoRouterState state) =>
-            const DashboardScreen(),
+            BlocProvider<DashboardBloc>(
+              create: (_) => sl<DashboardBloc>(),
+              child: const DashboardScreen(),
+            ),
       ),
       GoRoute(
         path: '/apply-leave',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'core/app_config/auth_session.dart';
 import 'core/di/injector.dart';
 import 'core/environment/app_env.dart';
 import 'my_app.dart';
