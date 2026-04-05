@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 
 import '../../../features/auth/data/datasource/auth_local_datasource.dart';
-import '../../../features/auth/data/models/response_model/auth_response_model.dart';
+import '../../../features/auth/data/models/request_model/refresh_token/refresh_token_request.dart';
+import '../../../features/auth/data/models/response_model/auth_response/auth_response_model.dart';
+import '../../../features/auth/data/models/response_model/refresh_token_response/refresh_token_response.dart';
+import '../../errors/exceptions.dart';
 import '../endpoints/auth_endpoints.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -31,59 +34,76 @@ class AuthInterceptor extends Interceptor {
     super.onRequest(options, handler);
   }
 
-  // @override
-  // Future<void> onError(
-  //   DioException err,
-  //   ErrorInterceptorHandler handler,
-  // ) async {
-  //
-  //   if (err.response?.statusCode == 401) {
-  //     try {
-  //       /// Prevent infinite loop
-  //       if (err.requestOptions.extra['isRetry'] == true) {
-  //         return handler.next(err);
-  //       }
+  @override
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    if (err.response?.statusCode == 401) {
+      try {
+        /// Prevent infinite loop
+        if (err.requestOptions.extra['isRetry'] == true) {
+          return handler.next(err);
+        }
 
-  //
-  //       final refreshToken = await tokenStorage.getRefreshToken();
+        AuthResponseModel? loginDetails = await tokenStorage.getToken();
 
-  //       if (refreshToken == null) {
-  //         return handler.next(err);
-  //       }
+        if (loginDetails == null) {
+          return handler.next(err);
+        }
 
-  //
-  //       final newToken = await _refreshToken(refreshToken);
+        final String refreshToken = loginDetails.refreshToken;
 
-  //
-  //       await tokenStorage.saveToken(newToken);
+        final RefreshTokenResponseModel newResult = await _refreshToken(
+          RefreshTokenRequestModel(refreshToken: refreshToken),
+        );
 
-  //
-  //       final RequestOptions options = err.requestOptions;
+        loginDetails = loginDetails.copyWith(
+          refreshToken: newResult.refreshToken,
+          accessToken: newResult.accessToken,
+        );
 
-  //       options.headers['Authorization'] = 'Bearer $newToken';
-  //       options.extra['isRetry'] = true;
+        await tokenStorage.saveToken(loginDetails);
 
-  //       final response = await Dio().fetch(options);
+        final RequestOptions options = err.requestOptions;
 
-  //       return handler.resolve(response);
-  //     } catch (e) {
-  //
-  //       await tokenStorage.clearToken();
+        options.headers['Authorization'] = 'Bearer ${loginDetails.accessToken}';
+        options.extra['isRetry'] = true;
 
-  //       return handler.next(err);
-  //     }
-  //   }
+        final Response<dynamic> response = await Dio().fetch(options);
 
-  //   return handler.next(err);
-  // }
+        return handler.resolve(response);
+      } catch (e) {
+        await tokenStorage.clearToken();
 
-  // /// 🔧 Mock refresh function (replace with real API call)
-  // Future<String> _refreshToken(String refreshToken) async {
-  //   // TODO: call your backend / Supabase refresh endpoint
-  //   // Example:
-  //   // final response = await dio.post('/auth/refresh', data: {...});
-  //   // return response.data['access_token'];
+        return handler.next(err);
+      }
+    }
 
-  //   throw UnimplementedError('Implement refresh token API');
-  // }
+    return handler.next(err);
+  }
+
+  Future<RefreshTokenResponseModel> _refreshToken(
+    RefreshTokenRequestModel refreshToken,
+  ) async {
+    try {
+      final Response<dynamic> refreshResponse = await dio.post(
+        AuthEndpoints.refresh,
+        data: refreshToken.toJson(),
+      );
+
+      if (refreshResponse.statusCode == 200 &&
+          refreshResponse.data['status'] == true) {
+        final RefreshTokenResponseModel result =
+            RefreshTokenResponseModel.fromJson(
+              refreshResponse.data['data'] as Map<String, dynamic>,
+            );
+
+        return result;
+      }
+      throw ServerException('Error getting refresh token');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

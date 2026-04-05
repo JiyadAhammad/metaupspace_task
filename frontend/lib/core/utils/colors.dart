@@ -23,6 +23,12 @@ class AppColors {
   static const Color pGradient1 = Color(0xFF00C853);
   static const Color pGradient2 = Color(0xFF4C8DFE);
 
+  // Light Bg for snackbar
+  static const Color successBg = Color(0xFF2ECC71); // light green
+  static const Color errorBg = Color(0xFFE74C3C); // light red
+  static const Color warningBg = Color(0xFFFFA726); // light orange
+  static const Color infoBg = Color(0xFF42A5F5); // light blue
+
   // --- Gradients ---
   static const LinearGradient streakGradient = LinearGradient(
     colors: <Color>[warning, error],

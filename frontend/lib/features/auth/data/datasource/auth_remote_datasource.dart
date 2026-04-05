@@ -6,7 +6,7 @@ import '../../../../core/network/base_remote_data_source.dart';
 import '../../../../core/network/endpoints/auth_endpoints.dart';
 import '../models/request_model/login_model/sign_in_request.dart';
 import '../models/request_model/sign_up_model/sign_up_request.dart';
-import '../models/response_model/auth_response_model.dart';
+import '../models/response_model/auth_response/auth_response_model.dart';
 
 abstract interface class IAuthRemoteDatasource {
   Future<ApiResponse<AuthResponseModel>> signIn(SignInRequest request);

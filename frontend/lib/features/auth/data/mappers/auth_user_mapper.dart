@@ -1,7 +1,7 @@
 import '../../domain/entities/user_entity.dart';
 import '../../domain/params/sign_up_params.dart';
 import '../models/request_model/sign_up_model/sign_up_request.dart';
-import '../models/response_model/auth_response_model.dart';
+import '../models/response_model/auth_response/auth_response_model.dart';
 
 extension AuthMapper on AuthResponseModel {
   AuthEntity toEntity() {

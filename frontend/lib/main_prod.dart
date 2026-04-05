@@ -15,6 +15,5 @@ Future<void> main() async {
   );
 
   await setupInjector();
-  await AuthSession.init();
   runApp(const MainApp());
 }

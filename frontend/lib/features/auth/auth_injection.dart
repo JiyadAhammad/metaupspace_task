@@ -8,7 +8,7 @@ import 'data/repository/auth_repository_impl.dart';
 import 'domain/repositories/i_auth_repository.dart';
 import 'domain/usecases/sign_in_usecase.dart';
 import 'domain/usecases/sign_up_usecase.dart';
-import 'presentation/bloc/bloc/auth_bloc.dart';
+import 'presentation/bloc/auth_bloc.dart';
 
 Future<void> registerAuthDependencies() async {
   /// Datasource

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../features/auth/data/models/response_model/auth_response_model.dart';
+import '../../features/auth/data/models/response_model/auth_response/auth_response_model.dart';
 import 'storage_keys.dart';
 
 class SecureStorageService {

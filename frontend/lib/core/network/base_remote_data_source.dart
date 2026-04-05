@@ -10,11 +10,40 @@ class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
   @override
   Future<T> safeApiCall<T>(Future<T> Function() apiCall) async {
     try {
-      return await apiCall();
+      final T response = await apiCall();
+
+      if (response is Map<String, dynamic>) {
+        if (response['status'] == false) {
+          throw ServerException(
+            response['message']?.toString() ?? 'Unknown server error',
+          );
+        }
+      }
+
+      return response;
     } on DioException catch (e) {
-      throw AppException.fromDio(e);
+      throw ServerException(_extractErrorMessage(e.response?.data, e.message));
     } catch (e) {
       throw ServerException(e.toString());
     }
+  }
+
+  String _extractErrorMessage(dynamic data, String? fallback) {
+    if (data is Map<String, dynamic>) {
+      // ✅ handle FastAPI validation error
+      if (data['detail'] is List && (data['detail'] as List).isNotEmpty) {
+        return data['detail'][0]['msg']?.toString() ??
+            fallback ??
+            'Unknown error';
+      }
+
+      return data['message']?.toString() ?? fallback ?? 'Unknown error';
+    }
+
+    if (data is String) {
+      return data;
+    }
+
+    return fallback ?? 'Unknown error';
   }
 }

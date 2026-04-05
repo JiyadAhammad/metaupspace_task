@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../widgets/custom_text.dart';
+import '../../colors.dart';
 import 'app_commands.dart';
 
 enum ToastType { success, error, info, warning }
@@ -22,6 +24,7 @@ class SnackbarCommand {
       backgroundColor: Colors.transparent,
       elevation: 0,
       duration: duration,
+      margin: const EdgeInsets.all(16),
       content: AppToast(
         type: type,
         title: title,
@@ -62,8 +65,16 @@ class AppToast extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        color: style.background, // ✅ background added
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: style.border),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withAlpha(20),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,12 +86,10 @@ class AppToast extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AppText(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  variant: TextVariant.large,
+                  color: style.textColor, // ✅ text color
                 ),
 
                 if (label != null) ...<Widget>[
@@ -91,28 +100,29 @@ class AppToast extends StatelessWidget {
                       vertical: 2,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.surface.withValues(alpha: 0.08),
+                      color: Colors.white.withAlpha(15),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(label!, style: const TextStyle(fontSize: 12)),
+                    child: AppText(label!, color: style.textColor),
                   ),
                 ],
 
                 if (description != null) ...<Widget>[
                   const SizedBox(height: 6),
-                  Text(
-                    description!,
-                    style: const TextStyle(fontSize: 13, color: Colors.black54),
-                  ),
+                  AppText(description!, color: style.textColor),
                 ],
               ],
             ),
           ),
 
           if (actionText != null)
-            TextButton(onPressed: onAction, child: Text(actionText!)),
+            TextButton(
+              onPressed: onAction,
+              child: Text(
+                actionText!,
+                style: TextStyle(color: style.textColor),
+              ),
+            ),
         ],
       ),
     );
@@ -121,14 +131,18 @@ class AppToast extends StatelessWidget {
 
 class ToastStyle {
   const ToastStyle({
+    required this.background,
     required this.border,
     required this.icon,
     required this.iconColor,
+    required this.textColor,
   });
 
+  final Color background;
   final Color border;
   final IconData icon;
   final Color iconColor;
+  final Color textColor;
 }
 
 class ToastStyles {
@@ -136,27 +150,38 @@ class ToastStyles {
     switch (type) {
       case ToastType.success:
         return const ToastStyle(
-          border: Color(0xFF2ECC71),
+          background: AppColors.successBg,
+          border: AppColors.success,
           icon: Icons.check_circle,
-          iconColor: Color(0xFF2ECC71),
+          iconColor: Colors.white,
+          textColor: Colors.white,
         );
-      case ToastType.info:
-        return const ToastStyle(
-          border: Color(0xFF4C7EFF),
-          icon: Icons.info,
-          iconColor: Color(0xFF4C7EFF),
-        );
-      case ToastType.warning:
-        return const ToastStyle(
-          border: Color(0xFFF1C40F),
-          icon: Icons.warning,
-          iconColor: Color(0xFFF1C40F),
-        );
+
       case ToastType.error:
         return const ToastStyle(
-          border: Color(0xFFE74C3C),
+          background: AppColors.errorBg,
+          border: AppColors.error,
           icon: Icons.error,
-          iconColor: Color(0xFFE74C3C),
+          iconColor: Colors.white,
+          textColor: Colors.white,
+        );
+
+      case ToastType.warning:
+        return const ToastStyle(
+          background: AppColors.warningBg,
+          border: AppColors.warning,
+          icon: Icons.warning,
+          iconColor: Colors.white,
+          textColor: Colors.white,
+        );
+
+      case ToastType.info:
+        return const ToastStyle(
+          background: AppColors.infoBg,
+          border: AppColors.blue,
+          icon: Icons.info,
+          iconColor: Colors.white,
+          textColor: Colors.white,
         );
     }
   }

@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/auth/auth_injection.dart';
 import '../../features/auth/data/datasource/auth_local_datasource.dart';
+import '../app_config/auth_session.dart';
 import '../network/api_client.dart';
 import '../storage/secure_storage_service.dart';
 
@@ -13,7 +14,7 @@ Future<void> setupInjector() async {
 }
 
 Future<void> _registerCore() async {
-  /// Flutter Secure Storage instance
+  /// Flutter Secure Storage
   sl.registerLazySingleton(() => const FlutterSecureStorage());
 
   /// Secure Storage Service
@@ -21,11 +22,17 @@ Future<void> _registerCore() async {
     () => SecureStorageService(sl<FlutterSecureStorage>()),
   );
 
+  /// Auth Session (AFTER storage is ready)
+  final AuthSession authSession = AuthSession();
+  await authSession.init();
+
+  sl.registerSingleton<AuthSession>(authSession);
+
   /// Api Client
   sl.registerLazySingleton<ApiClient>(
     () => ApiClient(sl<IAuthLocalDatasource>()),
   );
 
-  /// Dio instance
+  /// Dio
   sl.registerLazySingleton(() => sl<ApiClient>().dio);
 }

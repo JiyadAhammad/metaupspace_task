@@ -1,16 +1,18 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_const.dart';
 import '../../../../core/routes/route_names.dart';
+import '../../../../core/utils/ui/commands/snackbar_commands.dart';
 import '../../../../core/utils/validation.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_dropdown.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../domain/entities/user_entity.dart';
+import '../bloc/auth_bloc.dart';
 import '../widget/auth_header.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -115,8 +117,14 @@ class _SignUpLayoutState extends State<_SignUpLayout> {
   final TextEditingController _managerController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
-  String? _selectedDepartment;
-  String? _selectedRole;
+  // String? _selectedDepartment;
+  // String? _selectedRole;
+
+  final ValueNotifier<String?> _selectedDepartmentNotifier =
+      ValueNotifier<String?>(null);
+  final ValueNotifier<String?> _selectedRoleNotifier = ValueNotifier<String?>(
+    null,
+  );
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
@@ -126,9 +134,25 @@ class _SignUpLayoutState extends State<_SignUpLayout> {
       lastDate: DateTime(2100),
     );
     if (picked != null) {
-      setState(() {
-        _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
-      });
+      _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
+  }
+
+  void _handleSignup() {
+    if (_formKey.currentState?.validate() ?? false) {
+      context.read<AuthBloc>().add(
+        AuthEvent.register(
+          fullName: _nameController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+          department: _selectedDepartmentNotifier.value ?? '',
+          role: _selectedRoleNotifier.value ?? '',
+          manager: _managerController.text.trim(),
+          joiningDate: DateFormat(
+            'dd/MM/yyyy',
+          ).parse(_dateController.text.trim()),
+        ),
+      );
     }
   }
 
@@ -139,227 +163,267 @@ class _SignUpLayoutState extends State<_SignUpLayout> {
     _nameController.dispose();
     _managerController.dispose();
     _dateController.dispose();
+    _selectedDepartmentNotifier.dispose();
+    _selectedRoleNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    log('${widget.type}');
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisSize: .min,
-        mainAxisAlignment: .center,
-        spacing: 16,
-        children: <Widget>[
-          const AuthHeader(
-            title: 'Create Account',
-            subtitle: 'Please fill out the form below to register.',
-          ),
-
-          const SizedBox(height: 20),
-
-          if (widget.type != DeviceScreenType.mobile) ...<Widget>[
-            Row(
-              spacing: 12,
-              children: <Widget>[
-                Expanded(
-                  child: CustomTextField(
-                    hint: 'your.email@example.com',
-                    controller: _emailController,
-                    icon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
-                    maxLength: 50,
-                    validator: AppValidation.validateEmail,
-                  ),
-                ),
-                Expanded(
-                  child: CustomTextField(
-                    hint: 'Enter you full name',
-                    controller: _nameController,
-                    icon: Icons.person,
-                    maxLength: 25,
-                    validator: AppValidation.validateFullname,
-                  ),
-                ),
-              ],
-            ),
-          ] else
-          // Text Fields
-          ...<Widget>[
-            CustomTextField(
-              hint: 'your.email@example.com',
-              controller: _emailController,
-              icon: Icons.email_outlined,
-              keyboardType: TextInputType.emailAddress,
-              maxLength: 50,
-              validator: AppValidation.validateEmail,
-            ),
-            CustomTextField(
-              hint: 'Enter you full name',
-              controller: _nameController,
-              icon: Icons.person,
-              maxLength: 25,
-              validator: AppValidation.validateFullname,
-            ),
-          ],
-          CustomTextField(
-            hint: 'Enter your password',
-            controller: _passwordController,
-            isPassword: true,
-            icon: Icons.lock_outline,
-            maxLength: 25,
-            validator: AppValidation.validatePassword,
-          ),
-          if (widget.type != DeviceScreenType.mobile) ...<Widget>[
-            Row(
-              crossAxisAlignment: .start,
-              spacing: 12,
-              children: <Widget>[
-                Expanded(
-                  child: CustomDropdown(
-                    label: 'Department',
-                    hint: 'Select Dept',
-                    prefixIcon: const Icon(Icons.business),
-                    value: _selectedDepartment,
-                    items: AppConst.managers.keys.toList(),
-                    onChanged: (String? val) {
-                      setState(() {
-                        _selectedDepartment = val;
-                        _selectedRole = null;
-                        _managerController.text = AppConst.managers[val] ?? '';
-                      });
-                    },
-                    validator: (String? val) => val == null ? 'Required' : null,
-                  ),
-                ),
-                Expanded(
-                  child: CustomDropdown(
-                    label: 'Role',
-                    hint: 'Select Role',
-                    prefixIcon: const Icon(Icons.work_outline),
-                    value: _selectedRole,
-                    items: _selectedDepartment == null
-                        ? <String>[]
-                        : AppConst.roles[_selectedDepartment] ?? <String>[],
-                    onChanged: (String? val) =>
-                        setState(() => _selectedRole = val),
-                    validator: (String? val) => val == null ? 'Required' : null,
-                  ),
-                ),
-              ],
-            ),
-          ] else ...<Widget>[
-            CustomDropdown(
-              label: 'Department',
-              hint: 'Select Dept',
-              prefixIcon: const Icon(Icons.business),
-              value: _selectedDepartment,
-              items: AppConst.managers.keys.toList(),
-              onChanged: (String? val) {
-                setState(() {
-                  _selectedDepartment = val;
-                  _selectedRole = null;
-                  _managerController.text = AppConst.managers[val] ?? '';
-                });
-              },
-              validator: (String? val) => val == null ? 'Required' : null,
-            ),
-            CustomDropdown(
-              label: 'Role',
-              hint: 'Select Role',
-              prefixIcon: const Icon(Icons.work_outline),
-              value: _selectedRole,
-              items: _selectedDepartment == null
-                  ? <String>[]
-                  : AppConst.roles[_selectedDepartment] ?? <String>[],
-              onChanged: (String? val) => setState(() => _selectedRole = val),
-              validator: (String? val) => val == null ? 'Required' : null,
-            ),
-          ],
-          if (widget.type != DeviceScreenType.mobile) ...<Widget>[
-            Row(
-              crossAxisAlignment: .start,
-              spacing: 12,
-              children: <Widget>[
-                Expanded(
-                  child: CustomTextField(
-                    controller: _managerController,
-                    hint: 'Manager',
-                    icon: Icons.manage_accounts_outlined,
-                    readOnly: true,
-                  ),
-                ),
-                Expanded(
-                  child: CustomTextField(
-                    controller: _dateController,
-
-                    hint: 'Select Joining Date',
-                    icon: Icons.calendar_today_outlined,
-
-                    readOnly: true,
-                    onTap: _selectDate,
-                    validator: (String? val) =>
-                        (val == null || val.isEmpty) ? 'Required' : null,
-                  ),
-                ),
-              ],
-            ),
-          ] else ...<Widget>[
-            CustomTextField(
-              controller: _managerController,
-              hint: 'Manager',
-              icon: Icons.manage_accounts_outlined,
-              readOnly: true,
-            ),
-            CustomTextField(
-              controller: _dateController,
-
-              hint: 'Select Joining Date',
-              icon: Icons.calendar_today_outlined,
-
-              readOnly: true,
-              onTap: _selectDate,
-              validator: (String? val) =>
-                  (val == null || val.isEmpty) ? 'Required' : null,
-            ),
-          ],
-
-          const SizedBox(height: 16),
-
-          // Main Action Button (using our new AppButton)
-          AppButton(
-            label: 'Sign Up',
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // call signup API
-              }
-            },
-          ),
-
-          const SizedBox(height: 24),
-
-          // Navigation using AppText for consistency
-          GestureDetector(
-            onTap: () => context.goNamed(AppRouteNames.signin),
-            child: RichText(
-              text: TextSpan(
-                style: widget.theme.textTheme.bodyMedium,
-                children: <InlineSpan>[
-                  const TextSpan(text: 'Already have an account? '),
-                  TextSpan(
-                    text: 'Sign In',
-                    style: TextStyle(
-                      color: widget.theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (BuildContext context, AuthState state) {
+        state.whenOrNull(
+          success: (AuthEntity authEntity, String message) {
+            SnackbarCommand.show(title: message, type: ToastType.success);
+            context.goNamed(AppRouteNames.dashboard);
+          },
+          error: (String message) {
+            SnackbarCommand.show(title: message, type: ToastType.error);
+          },
+        );
+      },
+      builder: (BuildContext context, AuthState state) {
+        final bool isLoading = state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
+        return Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: .min,
+            mainAxisAlignment: .center,
+            spacing: 16,
+            children: <Widget>[
+              const AuthHeader(
+                title: 'Create Account',
+                subtitle: 'Please fill out the form below to register.',
               ),
-            ),
+
+              const SizedBox(height: 20),
+
+              if (widget.type != DeviceScreenType.mobile) ...<Widget>[
+                Row(
+                  spacing: 12,
+                  children: <Widget>[
+                    Expanded(
+                      child: CustomTextField(
+                        hint: 'Enter you full name',
+                        controller: _nameController,
+                        icon: Icons.person,
+                        maxLength: 25,
+                        validator: AppValidation.validateFullname,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomTextField(
+                        hint: 'your.email@example.com',
+                        controller: _emailController,
+                        icon: Icons.email_outlined,
+                        keyboardType: TextInputType.emailAddress,
+                        maxLength: 50,
+                        validator: AppValidation.validateEmail,
+                      ),
+                    ),
+                  ],
+                ),
+              ] else
+              // Text Fields
+              ...<Widget>[
+                CustomTextField(
+                  hint: 'Enter you full name',
+                  controller: _nameController,
+                  icon: Icons.person,
+                  maxLength: 25,
+                  validator: AppValidation.validateFullname,
+                ),
+                CustomTextField(
+                  hint: 'your.email@example.com',
+                  controller: _emailController,
+                  icon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                  maxLength: 50,
+                  validator: AppValidation.validateEmail,
+                ),
+              ],
+              CustomTextField(
+                hint: 'Enter your password',
+                controller: _passwordController,
+                isPassword: true,
+                icon: Icons.lock_outline,
+                maxLength: 25,
+                validator: AppValidation.validatePassword,
+              ),
+              ListenableBuilder(
+                listenable: Listenable.merge(<Listenable?>[
+                  _selectedDepartmentNotifier,
+                  _selectedRoleNotifier,
+                ]),
+                builder: (BuildContext context, Widget? child) {
+                  final String? selectedDepartment =
+                      _selectedDepartmentNotifier.value;
+                  final String? selectedRole = _selectedRoleNotifier.value;
+
+                  if (widget.type != DeviceScreenType.mobile) {
+                    return Row(
+                      crossAxisAlignment: .start,
+                      spacing: 12,
+                      children: <Widget>[
+                        Expanded(
+                          child: CustomDropdown(
+                            label: 'Department',
+                            hint: 'Select Dept',
+                            prefixIcon: const Icon(Icons.business),
+                            value: selectedDepartment,
+                            items: AppConst.managers.keys.toList(),
+                            onChanged: (String? val) {
+                              _selectedDepartmentNotifier.value = val;
+                              _selectedRoleNotifier.value = null;
+
+                              _managerController.text =
+                                  AppConst.managers[val] ?? '';
+                            },
+                            validator: (String? val) =>
+                                val == null ? 'Required' : null,
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomDropdown(
+                            label: 'Role',
+                            hint: 'Select Role',
+                            prefixIcon: const Icon(Icons.work_outline),
+                            value: selectedRole,
+                            items: selectedDepartment == null
+                                ? <String>[]
+                                : AppConst.roles[selectedDepartment] ??
+                                      <String>[],
+                            onChanged: (String? val) =>
+                                _selectedRoleNotifier.value = val,
+                            validator: (String? val) =>
+                                val == null ? 'Required' : null,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: <Widget>[
+                        CustomDropdown(
+                          label: 'Department',
+                          hint: 'Select Dept',
+                          prefixIcon: const Icon(Icons.business),
+                          value: selectedDepartment,
+                          items: AppConst.managers.keys.toList(),
+                          onChanged: (String? val) {
+                            _selectedDepartmentNotifier.value = val;
+                            _selectedRoleNotifier.value = null;
+
+                            _managerController.text =
+                                AppConst.managers[val] ?? '';
+                          },
+                          validator: (String? val) =>
+                              val == null ? 'Required' : null,
+                        ),
+                        CustomDropdown(
+                          label: 'Role',
+                          hint: 'Select Role',
+                          prefixIcon: const Icon(Icons.work_outline),
+                          value: selectedRole,
+                          items: selectedDepartment == null
+                              ? <String>[]
+                              : AppConst.roles[selectedDepartment] ??
+                                    <String>[],
+                          onChanged: (String? val) =>
+                              _selectedRoleNotifier.value = val,
+                          validator: (String? val) =>
+                              val == null ? 'Required' : null,
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+              if (widget.type != DeviceScreenType.mobile) ...<Widget>[
+                Row(
+                  crossAxisAlignment: .start,
+                  spacing: 12,
+                  children: <Widget>[
+                    Expanded(
+                      child: CustomTextField(
+                        controller: _managerController,
+                        hint: 'Manager',
+                        icon: Icons.manage_accounts_outlined,
+                        readOnly: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomTextField(
+                        controller: _dateController,
+
+                        hint: 'Select Joining Date',
+                        icon: Icons.calendar_today_outlined,
+
+                        readOnly: true,
+                        onTap: _selectDate,
+                        validator: (String? val) =>
+                            (val == null || val.isEmpty) ? 'Required' : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ] else ...<Widget>[
+                CustomTextField(
+                  controller: _managerController,
+                  hint: 'Manager',
+                  icon: Icons.manage_accounts_outlined,
+                  readOnly: true,
+                ),
+                CustomTextField(
+                  controller: _dateController,
+
+                  hint: 'Select Joining Date',
+                  icon: Icons.calendar_today_outlined,
+
+                  readOnly: true,
+                  onTap: _selectDate,
+                  validator: (String? val) =>
+                      (val == null || val.isEmpty) ? 'Required' : null,
+                ),
+              ],
+
+              const SizedBox(height: 16),
+
+              // Main Action Button (using our new AppButton)
+              AppButton(
+                isLoading: isLoading,
+                label: 'Sign Up',
+                onPressed: _handleSignup,
+              ),
+
+              const SizedBox(height: 24),
+
+              // Navigation using AppText for consistency
+              GestureDetector(
+                onTap: () => context.goNamed(AppRouteNames.signin),
+                child: RichText(
+                  text: TextSpan(
+                    style: widget.theme.textTheme.bodyMedium,
+                    children: <InlineSpan>[
+                      const TextSpan(text: 'Already have an account? '),
+                      TextSpan(
+                        text: 'Sign In',
+                        style: TextStyle(
+                          color: widget.theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

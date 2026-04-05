@@ -5,6 +5,7 @@ import '../environment/app_env.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/error_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
+import 'interceptors/retry_interceptor.dart';
 
 class ApiClient {
   ApiClient(this.storage) {
@@ -24,6 +25,7 @@ class ApiClient {
       AuthInterceptor(storage, dio),
       if (Environment.current == AppEnvironment.dev) LoggingInterceptor(),
       ErrorInterceptor(),
+      RetryInterceptor(dio),
     ]);
   }
 

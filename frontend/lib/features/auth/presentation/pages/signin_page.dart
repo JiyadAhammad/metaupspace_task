@@ -8,7 +8,7 @@ import '../../../../core/utils/validation.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../domain/entities/user_entity.dart';
-import '../bloc/bloc/auth_bloc.dart';
+import '../bloc/auth_bloc.dart';
 import '../widget/auth_header.dart';
 
 class SigninPage extends StatefulWidget {
@@ -112,16 +112,15 @@ class _SigninPageState extends State<SigninPage> {
                             onPressed: isLoading
                                 ? null
                                 : () {
-                                    // if (_formKey.currentState!.validate()) {
-                                    //   context.read<AuthBloc>().add(
-                                    //     AuthEvent.login(
-                                    //       email: _emailController.text.trim(),
-                                    //       password: _passwordController.text
-                                    //           .trim(),
-                                    //     ),
-                                    //   );
-                                    // }
-                                    context.goNamed(AppRouteNames.dashboard);
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<AuthBloc>().add(
+                                        AuthEvent.login(
+                                          email: _emailController.text.trim(),
+                                          password: _passwordController.text
+                                              .trim(),
+                                        ),
+                                      );
+                                    }
                                   },
                           );
                         },

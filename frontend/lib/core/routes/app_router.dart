@@ -9,6 +9,7 @@ import '../../features/leave/presentation/pages/leave_history_screen.dart';
 import '../../features/payslip/presentation/pages/view_pay_slips_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../app_config/auth_session.dart';
+import '../di/injector.dart';
 import 'route_names.dart';
 
 class AppRouter {
@@ -18,9 +19,9 @@ class AppRouter {
 
   static final GoRouter router = GoRouter(
     initialLocation: '/login',
-    // initialLocation: '/help-support',
     navigatorKey: navigatorKey,
     debugLogDiagnostics: true, // Useful for development
+    refreshListenable: sl<AuthSession>(),
     // --- Deep Linking Configuration ---
     // In the future, you'll set your host here (e.g., app.example.com)
     // For now, it allows path-based URL navigation
@@ -77,7 +78,9 @@ class AppRouter {
     // --- Auth Guard (Redirection) ---
     // This is where you will check if the user is logged in
     redirect: (BuildContext context, GoRouterState state) {
-      final bool loggedIn = AuthSession.isLoggedIn;
+      final AuthSession authSession = sl<AuthSession>();
+
+      final bool loggedIn = authSession.isLoggedIn;
 
       final bool loggingIn =
           state.matchedLocation == '/login' ||

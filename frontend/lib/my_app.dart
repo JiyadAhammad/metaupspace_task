@@ -7,7 +7,7 @@ import 'core/environment/app_env.dart';
 import 'core/routes/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/ui/commands/app_commands.dart';
-import 'features/auth/presentation/bloc/bloc/auth_bloc.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
 
 /// Track. Improve. Get hired
 ///
