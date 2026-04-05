@@ -1,9 +1,13 @@
 from fastapi import APIRouter
 
-from .endpoint import auth
+
+from .endpoint import auth, dashboard
 
 
 api_router = APIRouter()
 
 # /api/v1/auth/
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
+api_router.include_router(
+    dashboard.router, prefix="/dashboard", tags=["Employee Dashboard"]
+)
