@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 
 from app.schema.auth_schema import AuthResponse
