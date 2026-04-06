@@ -30,7 +30,7 @@ class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
 
   String _extractErrorMessage(dynamic data, String? fallback) {
     if (data is Map<String, dynamic>) {
-      // ✅ handle FastAPI validation error
+      // handle FastAPI validation error
       if (data['detail'] is List && (data['detail'] as List).isNotEmpty) {
         return data['detail'][0]['msg']?.toString() ??
             fallback ??

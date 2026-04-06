@@ -9,6 +9,7 @@ import '../../features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../../features/leave/presentation/pages/apply_leave_screen.dart';
 import '../../features/leave/presentation/pages/leave_history_screen.dart';
+import '../../features/payslip/presentation/bloc/payslip_bloc.dart';
 import '../../features/payslip/presentation/pages/view_pay_slips_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../app_config/auth_session.dart';
@@ -66,7 +67,10 @@ class AppRouter {
         path: '/pay-slip',
         name: AppRouteNames.paySlip,
         builder: (BuildContext context, GoRouterState state) =>
-            const ViewPaySlipsScreen(),
+            BlocProvider<PayslipBloc>(
+              create: (_) => sl<PayslipBloc>(),
+              child: const ViewPaySlipsScreen(),
+            ),
       ),
       GoRoute(
         path: '/profile',
