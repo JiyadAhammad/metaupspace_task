@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
+import '../../../../core/app_config/auth_session.dart';
+import '../../../../core/di/injector.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/model/api_response.dart';
@@ -35,6 +37,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       );
       return response.map((AuthResult authResult) {
         local.saveToken(result.data!);
+        sl<AuthSession>().login();
         return authResult;
       });
     } on ServerException catch (e) {
@@ -59,6 +62,7 @@ class AuthRepositoryImpl implements IAuthRepository {
 
       return response.map((AuthResult authResult) {
         local.saveToken(result.data!);
+        sl<AuthSession>().login();
         return authResult;
       });
     } on ServerException catch (e) {

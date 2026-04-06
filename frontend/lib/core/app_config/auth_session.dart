@@ -13,6 +13,8 @@ class AuthSession extends ChangeNotifier {
     final AuthResponseModel? token = await sl<SecureStorageService>()
         .getToken();
     _isLoggedIn = token != null && token.accessToken != null;
+
+    notifyListeners();
   }
 
   void login() {

@@ -9,8 +9,7 @@ import 'core/theme/app_theme.dart';
 import 'core/utils/ui/commands/app_commands.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 
-/// Track. Improve. Get hired
-///
+
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

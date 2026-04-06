@@ -5,6 +5,7 @@ import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/payslip_entity.dart';
 import '../bloc/payslip_bloc.dart';
+import '../widgets/payslip_shimmer.dart';
 
 class ViewPaySlipsScreen extends StatefulWidget {
   const ViewPaySlipsScreen({super.key});
@@ -29,32 +30,21 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
       body: BlocBuilder<PayslipBloc, PayslipState>(
         builder: (BuildContext context, PayslipState state) {
           if (state.isLoading) {
-            // TODO: Add Shimer here
-            return const SizedBox();
+            return const PayslipShimmer();
           }
           if (state.isError) {
-            return Center(child: AppText(state.errorMessage ?? ''));
+            return _ErrorWidget(
+              errorMessage: state.errorMessage ?? 'Error fetching Payslip list',
+            );
           }
           if (state.payslip == null) {
-            return const Center(child: AppText('Error fetching Payslip list'));
+            return const _ErrorWidget(
+              errorMessage: 'Error fetching Payslip list',
+            );
           }
           if (state.payslip!.payslips.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: .center,
-                children: <Widget>[
-                  Icon(
-                    Icons.receipt_long,
-                    size: 64,
-                    color: Colors.grey.withValues(alpha: 0.5),
-                  ),
-                  const SizedBox(height: 16),
-                  const AppText(
-                    'No payslip available, you joined this month.',
-                    variant: TextVariant.h3,
-                  ),
-                ],
-              ),
+            return const _ErrorWidget(
+              errorMessage: 'No payslip available, you joined this month.',
             );
           }
           final PaySlipEntity payslip = state.payslip!;
@@ -69,7 +59,7 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                   Row(
                     mainAxisAlignment: .spaceBetween,
                     children: <Widget>[
-                      const AppText('Recent Payslips'),
+                      const AppText('Recent Payslips', variant: TextVariant.h3),
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -83,6 +73,7 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                         ),
                         child: AppText(
                           'Base: ₹${payslip.baseSalary.toStringAsFixed(2)}/month',
+                          variant: TextVariant.large,
                         ),
                       ),
                     ],
@@ -92,10 +83,10 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
                           child: AppText(
-                            'Showing 4 payslip${4 > 1 ? 's' : ''}',
+                            'Showing ${payslip.payslips.length} payslip${payslip.payslips.length > 1 ? 's' : ''}',
                           ),
                         ),
                         Expanded(
@@ -127,38 +118,43 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ),
-                                  title: AppText(payslipItem.month),
-                                  subtitle: AppText(
-                                    'ID: PAY-${payslipItem.id} • Status: ${payslipItem.status}',
+                                  title: AppText(
+                                    payslipItem.month,
+                                    variant: TextVariant.large,
+                                  ),
+                                  subtitle: Row(
+                                    children: [
+                                      AppText(
+                                        'ID: PAY-${payslipItem.id} ',
+                                        variant: TextVariant.small,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 6,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              payslipItem.status
+                                                      .toLowerCase() ==
+                                                  'paid'
+                                              ? Colors.green.withAlpha(70)
+                                              : Colors.red.withAlpha(70),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                        ),
+                                        child: AppText(
+                                          '• Status: ${payslipItem.status}',
+                                          variant: TextVariant.small,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   trailing: AppText(
                                     '₹${payslipItem.totalSalary.toStringAsFixed(2)}',
+                                    variant: TextVariant.large,
                                   ),
-                                  // trailing: ElevatedButton.icon(
-                                  //   onPressed: () {
-                                  //     ScaffoldMessenger.of(
-                                  //       context,
-                                  //     ).showSnackBar(
-                                  //       const SnackBar(
-                                  //         content: Text(
-                                  //           'Downloading  Payslip...',
-                                  //         ),
-                                  //         behavior: SnackBarBehavior.floating,
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  //   icon: const Icon(
-                                  //     Icons.download_rounded,
-                                  //     size: 18,
-                                  //   ),
-                                  //   label: const Text('Download'),
-                                  //   style: ElevatedButton.styleFrom(
-                                  //     padding: const EdgeInsets.symmetric(
-                                  //       horizontal: 16,
-                                  //       vertical: 12,
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ),
                               );
                             },
@@ -172,6 +168,30 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _ErrorWidget extends StatelessWidget {
+  const _ErrorWidget({required this.errorMessage});
+
+  final String errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: .center,
+        children: <Widget>[
+          Icon(
+            Icons.receipt_long,
+            size: 64,
+            color: Colors.grey.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: 16),
+          AppText(errorMessage, variant: TextVariant.h3),
+        ],
       ),
     );
   }

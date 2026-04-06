@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/app_config/auth_session.dart';
+import '../../../../core/di/injector.dart';
 import '../../../../core/extension/date_extension.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
+import '../../../auth/data/datasource/auth_local_datasource.dart';
 import '../../../dashboard/domain/entity/dashboard_entity.dart';
 import '../widgets/build_profile_header.dart';
 
@@ -52,7 +55,11 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () async {
+                      await sl<IAuthLocalDatasource>().clearToken();
+
+                      sl<AuthSession>().logout();
+                    },
                     icon: const Icon(Icons.logout, color: Colors.red),
                     label: const Text(
                       'Log Out',
