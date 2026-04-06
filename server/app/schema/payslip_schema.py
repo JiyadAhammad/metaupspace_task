@@ -12,6 +12,7 @@ class PaySlipItem(BaseModel):
 
 class PaySlipResponse(BaseModel):
     role: str
+    base_salary: float
     user_id: str
     joining_date: str
     payslips: Optional[List[PaySlipItem]]

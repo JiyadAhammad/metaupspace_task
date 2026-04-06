@@ -61,6 +61,7 @@ async def get_payslip_data(
         return PaySlipResponse(
             role=role,
             user_id=user_id,
+            base_salary=salary,
             joining_date=joining_date_str,
             payslips=payslips,
         )
