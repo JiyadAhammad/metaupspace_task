@@ -11,6 +11,15 @@ from app.schema.auth_schema import (
 )
 
 
+def get_user_from_db(user_id: str):
+    response = supabase.table("users").select("*").eq("id", user_id).single().execute()
+
+    if not response.data:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return response.data
+
+
 async def login_user(data: LoginRequest):
 
     try:

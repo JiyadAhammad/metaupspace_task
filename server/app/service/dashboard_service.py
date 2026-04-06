@@ -8,15 +8,7 @@ from app.schema.dashboard_schema import (
     DashboardData,
     EmployeeDetails,
 )
-
-
-def get_user_from_db(user_id: str):
-    response = supabase.table("users").select("*").eq("id", user_id).single().execute()
-
-    if not response.data:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    return response.data
+from app.service.auth_service import get_user_from_db
 
 
 async def get_dashboard_data(
