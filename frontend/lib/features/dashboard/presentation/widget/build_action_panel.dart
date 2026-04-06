@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/widgets/custom_text.dart';
+import '../../domain/entity/dashboard_entity.dart';
 
 class BuildActionPanel extends StatelessWidget {
-  const BuildActionPanel({super.key});
+  const BuildActionPanel({super.key, required this.entity});
+
+  final DashboardEntity entity;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +51,7 @@ class BuildActionPanel extends StatelessWidget {
               label: 'View Profile',
               icon: Icons.person_outline,
               onPressed: () {
-                //TODO: Navigate to View Profile page;
-                context.pushNamed(AppRouteNames.profile);
+                context.pushNamed(AppRouteNames.profile, extra: entity);
               },
             ),
           ],

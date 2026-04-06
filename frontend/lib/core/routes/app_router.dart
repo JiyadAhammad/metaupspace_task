@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/signin_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
+import '../../features/dashboard/domain/entity/dashboard_entity.dart';
 import '../../features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../../features/leave/presentation/pages/apply_leave_screen.dart';
@@ -70,8 +71,11 @@ class AppRouter {
       GoRoute(
         path: '/profile',
         name: AppRouteNames.profile,
-        builder: (BuildContext context, GoRouterState state) =>
-            const ProfileScreen(),
+        builder: (BuildContext context, GoRouterState state) {
+          final DashboardEntity entity = state.extra! as DashboardEntity;
+
+          return ProfileScreen(employee: entity.employee);
+        },
       ),
     ],
 

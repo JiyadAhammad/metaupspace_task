@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../../core/constants/app_const.dart';
 import '../../../../core/utils/ui/commands/snackbar_commands.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/dashboard_entity.dart';
@@ -80,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 class _BuildMobileLayout extends StatelessWidget {
   const _BuildMobileLayout({required this.dashboardData});
 
-  final DashboardEntity? dashboardData;
+  final DashboardEntity dashboardData;
 
   @override
   Widget build(BuildContext context) {
@@ -90,25 +89,14 @@ class _BuildMobileLayout extends StatelessWidget {
         crossAxisAlignment: .start,
         spacing: 16,
         children: <Widget>[
-          GreetingHeader(
-            name: '${dashboardData?.employee.fullName}',
-            role: '${dashboardData?.employee.role}',
-          ),
+          GreetingHeader(entity: dashboardData),
 
-          const BuildStatsGrid(crossAxisCount: 1),
+          BuildStatsGrid(crossAxisCount: 1, entity: dashboardData),
 
-          ExpandableWidget(
-            cardTitle: 'Leave Details',
-            icon: Icons.beach_access_outlined,
-            cardDetails: AppConst.leaveDetails,
-          ),
-          ExpandableWidget(
-            cardTitle: 'Upcoming Holidays',
-            icon: Icons.celebration_outlined,
-            cardDetails: AppConst.holidaysDetails,
-          ),
+          ExpandableWidget(entity: dashboardData),
+          ExpandableWidget(entity: dashboardData),
 
-          const BuildActionPanel(),
+          BuildActionPanel(entity: dashboardData),
         ],
       ),
     );
@@ -117,7 +105,7 @@ class _BuildMobileLayout extends StatelessWidget {
 
 class _BuildDesktopLayout extends StatelessWidget {
   const _BuildDesktopLayout({required this.dashboardData});
-  final DashboardEntity? dashboardData;
+  final DashboardEntity dashboardData;
 
   @override
   Widget build(BuildContext context) {
@@ -127,33 +115,14 @@ class _BuildDesktopLayout extends StatelessWidget {
         crossAxisAlignment: .start,
         spacing: 16,
         children: <Widget>[
-          GreetingHeader(
-            name: '${dashboardData?.employee.fullName}',
-            role: '${dashboardData?.employee.role}',
-          ),
+          GreetingHeader(entity: dashboardData),
 
-          const BuildStatsGrid(crossAxisCount: 3),
+          BuildStatsGrid(crossAxisCount: 3, entity: dashboardData),
           Row(
             crossAxisAlignment: .start,
             children: <Widget>[
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    ExpandableWidget(
-                      cardTitle: 'Leave Details',
-                      icon: Icons.beach_access_outlined,
-                      cardDetails: AppConst.leaveDetails,
-                    ),
-                    ExpandableWidget(
-                      cardTitle: 'Upcoming Holidays',
-                      icon: Icons.celebration_outlined,
-                      cardDetails: AppConst.holidaysDetails,
-                    ),
-                  ],
-                ),
-              ),
-
-              const Expanded(child: BuildActionPanel()),
+              Expanded(child: ExpandableWidget(entity: dashboardData)),
+              Expanded(child: BuildActionPanel(entity: dashboardData)),
             ],
           ),
         ],
@@ -164,7 +133,7 @@ class _BuildDesktopLayout extends StatelessWidget {
 
 class _BuildLaptopLayout extends StatelessWidget {
   const _BuildLaptopLayout({required this.dashboardData});
-  final DashboardEntity? dashboardData;
+  final DashboardEntity dashboardData;
 
   @override
   Widget build(BuildContext context) {
@@ -174,32 +143,17 @@ class _BuildLaptopLayout extends StatelessWidget {
         crossAxisAlignment: .start,
         spacing: 16,
         children: <Widget>[
-          GreetingHeader(
-            name: '${dashboardData?.employee.fullName}',
-            role: '${dashboardData?.employee.role}',
-          ),
+          GreetingHeader(entity: dashboardData),
 
-          const BuildStatsGrid(crossAxisCount: 2),
+          BuildStatsGrid(crossAxisCount: 2, entity: dashboardData),
           Row(
             crossAxisAlignment: .start,
             children: <Widget>[
-              Expanded(
-                child: ExpandableWidget(
-                  cardTitle: 'Leave Details',
-                  icon: Icons.beach_access_outlined,
-                  cardDetails: AppConst.leaveDetails,
-                ),
-              ),
-              Expanded(
-                child: ExpandableWidget(
-                  cardTitle: 'Upcoming Holidays',
-                  icon: Icons.celebration_outlined,
-                  cardDetails: AppConst.holidaysDetails,
-                ),
-              ),
+              Expanded(child: ExpandableWidget(entity: dashboardData)),
+              Expanded(child: ExpandableWidget(entity: dashboardData)),
             ],
           ),
-          const BuildActionPanel(),
+          BuildActionPanel(entity: dashboardData),
         ],
       ),
     );

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_text.dart';
+import '../../domain/entity/dashboard_entity.dart';
 
 class BuildStatsGrid extends StatelessWidget {
-  const BuildStatsGrid({super.key, required this.crossAxisCount});
-
+  const BuildStatsGrid({
+    super.key,
+    required this.crossAxisCount,
+    required this.entity,
+  });
+  final DashboardEntity entity;
   final int crossAxisCount;
 
   @override
@@ -16,22 +21,23 @@ class BuildStatsGrid extends StatelessWidget {
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       childAspectRatio: 2.1,
-      children: const <Widget>[
+      children: <Widget>[
         _StatCard(
           title: 'Attendance',
-          value: '98%',
+          value:
+              '${entity.attendance.totalWorkingDays == 0 ? 0 : ((entity.attendance.presentDays / entity.attendance.totalWorkingDays) * 100).toInt()}%',
           icon: Icons.check_circle_outline,
           color: Colors.green,
         ),
         _StatCard(
           title: 'Leaves Taken',
-          value: '5 Days',
+          value: '${entity.leaveDetails.leavesTaken} Days',
           icon: Icons.date_range,
           color: Colors.orange,
         ),
         _StatCard(
           title: 'Pending Requests',
-          value: '2',
+          value: '${entity.leaveDetails.leavesPending}',
           icon: Icons.pending_actions,
           color: Colors.blue,
         ),

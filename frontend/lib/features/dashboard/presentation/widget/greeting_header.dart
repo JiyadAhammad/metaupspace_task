@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/ui/greeting_util.dart';
 import '../../../../core/widgets/custom_text.dart';
+import '../../domain/entity/dashboard_entity.dart';
 
 class GreetingHeader extends StatelessWidget {
-  const GreetingHeader({super.key, required this.name, required this.role});
-  final String name;
-  final String role;
+  const GreetingHeader({super.key, required this.entity});
+  final DashboardEntity entity;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class GreetingHeader extends StatelessWidget {
       children: <Widget>[
         CircleAvatar(
           radius: 28,
-          child: AppText(name[0], variant: TextVariant.h1),
+          child: AppText(entity.employee.fullName[0], variant: TextVariant.h1),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -22,11 +22,11 @@ class GreetingHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               AppText(
-                '${GreetingUtil.getGreeting()}, $name!',
+                '${GreetingUtil.getGreeting()}, ${entity.employee.fullName}',
                 variant: TextVariant.h1,
               ),
               const SizedBox(height: 4),
-              AppText(role, variant: TextVariant.h3),
+              AppText(entity.employee.role, variant: TextVariant.h3),
             ],
           ),
         ),

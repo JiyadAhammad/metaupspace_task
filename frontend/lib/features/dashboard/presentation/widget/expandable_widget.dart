@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/extension/date_extension.dart';
 import '../../../../core/widgets/custom_text.dart';
+import '../../domain/entity/dashboard_entity.dart';
 
 class TestModel {
   TestModel({required this.title, required this.trailing});
@@ -10,28 +12,47 @@ class TestModel {
 }
 
 class ExpandableWidget extends StatelessWidget {
-  const ExpandableWidget({
-    super.key,
-    required this.cardTitle,
-    required this.cardDetails,
-    required this.icon,
-  });
+  const ExpandableWidget({super.key, required this.entity});
 
-  final String cardTitle;
-  final IconData icon;
-  final List<TestModel> cardDetails;
+  final DashboardEntity entity;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         _ExpandableCard(
-          title: cardTitle,
-          icon: icon,
+          title: 'Leave Details',
+          icon: Icons.beach_access_outlined,
           child: Column(
-            children: List<Widget>.generate(cardDetails.length, (int index) {
-              final TestModel item = cardDetails[index];
-              return _BuildListTile(title: item.title, trailing: item.trailing);
+            children: <Widget>[
+              _BuildListTile(
+                title: 'Total Leaves',
+                trailing: '${entity.leaveDetails.totalLeaves} Days',
+              ),
+              _BuildListTile(
+                title: 'Leaves Taken',
+                trailing: '${entity.leaveDetails.leavesTaken} Days',
+              ),
+              _BuildListTile(
+                title: 'Available Leaves',
+                trailing: '${entity.leaveDetails.leavesAvailable} Days',
+              ),
+            ],
+          ),
+        ),
+        _ExpandableCard(
+          title: 'Upcoming Holidays',
+          icon: Icons.celebration_outlined,
+          child: Column(
+            children: List<Widget>.generate(entity.holidays.length, (
+              int index,
+            ) {
+              final HolidayEntity item = entity.holidays[index];
+
+              return _BuildListTile(
+                title: item.name,
+                trailing: item.date.toDMY(),
+              );
             }),
           ),
         ),
