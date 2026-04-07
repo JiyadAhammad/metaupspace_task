@@ -1,6 +1,12 @@
 # 🚀 Employee Dashboard Application
 
 A **production-ready Enterprise Employee Dashboard** built using **Flutter + FastAPI**, designed with a strong focus on **Clean Architecture**, scalability, and real-world engineering practices.
+> ⚠️ **Note:**  
+> The backend is hosted on the free tier of Render. Due to its auto-sleep mechanism, the server may take up to **60 seconds** to respond on the first request after inactivity.  
+>  
+> To avoid delays, you can first open the Swagger documentation below to wake up the server. Once it loads successfully, the APIs will respond normally in the application.
+>
+> 🔗 Swagger Docs: https://metaupspace-task.onrender.com/docs
 
 ---
 
