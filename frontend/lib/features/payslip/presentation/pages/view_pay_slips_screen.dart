@@ -5,6 +5,7 @@ import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/payslip_entity.dart';
 import '../bloc/payslip_bloc.dart';
+import '../widgets/payslip_item_widget.dart';
 import '../widgets/payslip_shimmer.dart';
 
 class ViewPaySlipsScreen extends StatefulWidget {
@@ -99,64 +100,7 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                               final PaySlipItemEntity payslipItem =
                                   payslip.payslips[index];
 
-                              return Card(
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 12,
-                                  ),
-                                  leading: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(
-                                        context,
-                                      ).primaryColor.withValues(alpha: 0.1),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Icon(
-                                      Icons.receipt_long,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ),
-                                  title: AppText(
-                                    payslipItem.month,
-                                    variant: TextVariant.large,
-                                  ),
-                                  subtitle: Row(
-                                    children: [
-                                      AppText(
-                                        'ID: PAY-${payslipItem.id} ',
-                                        variant: TextVariant.small,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              payslipItem.status
-                                                      .toLowerCase() ==
-                                                  'paid'
-                                              ? Colors.green.withAlpha(70)
-                                              : Colors.red.withAlpha(70),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                        ),
-                                        child: AppText(
-                                          '• Status: ${payslipItem.status}',
-                                          variant: TextVariant.small,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: AppText(
-                                    '₹${payslipItem.totalSalary.toStringAsFixed(2)}',
-                                    variant: TextVariant.large,
-                                  ),
-                                ),
-                              );
+                              return PayslipItemCard(payslipItem: payslipItem);
                             },
                           ),
                         ),

@@ -25,7 +25,6 @@ class BuildActionPanel extends StatelessWidget {
               label: 'Apply Leave',
               icon: Icons.add,
               onPressed: () {
-                //TODO: Navigate to Apply leave page;
                 context.pushNamed(AppRouteNames.applyLeave);
               },
             ),
@@ -33,7 +32,6 @@ class BuildActionPanel extends StatelessWidget {
               label: 'Leave History',
               icon: Icons.history,
               onPressed: () {
-                //TODO: Navigate to leave history page;
                 context.pushNamed(AppRouteNames.leaveHistory);
               },
             ),
@@ -42,7 +40,6 @@ class BuildActionPanel extends StatelessWidget {
               label: 'View Payslip',
               icon: Icons.receipt_long,
               onPressed: () {
-                //TODO: Navigate to View Slip page;
                 context.pushNamed(AppRouteNames.paySlip);
               },
             ),

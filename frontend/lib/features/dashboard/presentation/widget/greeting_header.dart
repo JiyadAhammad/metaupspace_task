@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/ui/greeting_util.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/dashboard_entity.dart';
+import '../bloc/dashboard_bloc.dart';
 
 class GreetingHeader extends StatelessWidget {
   const GreetingHeader({super.key, required this.entity});
@@ -30,17 +32,21 @@ class GreetingHeader extends StatelessWidget {
             ],
           ),
         ),
-        // IconButton(
-        //   onPressed: () {},
-        //   icon: const Icon(Icons.notifications_none_rounded),
-        //   style: IconButton.styleFrom(
-        //     backgroundColor: Theme.of(context).colorScheme.surface,
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(12),
-        //       side: BorderSide(color: Theme.of(context).dividerColor),
-        //     ),
-        //   ),
-        // ),
+        TextButton(
+          onPressed: () {
+            context.read<DashboardBloc>().add(
+              const DashboardEvent.getDashboardData(),
+            );
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: Theme.of(context).dividerColor),
+            ),
+          ),
+          child: const AppText('Refresh Dashboard', variant: TextVariant.h2),
+        ),
       ],
     );
   }

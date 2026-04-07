@@ -84,7 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   String getDeviceType() {
     if (kIsWeb) {
-      return 'ios';
+      return 'android';
     }
 
     switch (defaultTargetPlatform) {
@@ -101,7 +101,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // case TargetPlatform.windows:
       //   return 'windows';
       default:
-        return 'web';
+        return 'android';
     }
   }
 }

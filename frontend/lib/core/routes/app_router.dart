@@ -25,11 +25,8 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/login',
     navigatorKey: navigatorKey,
-    debugLogDiagnostics: true, // Useful for development
+    debugLogDiagnostics: true,
     refreshListenable: sl<AuthSession>(),
-    // --- Deep Linking Configuration ---
-    // In the future, you'll set your host here (e.g., app.example.com)
-    // For now, it allows path-based URL navigation
     routes: <RouteBase>[
       GoRoute(
         path: '/login',
