@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
+import '../bloc/leave_application_bloc.dart';
 
-class LeaveHistoryScreen extends StatelessWidget {
+class LeaveHistoryScreen extends StatefulWidget {
   const LeaveHistoryScreen({super.key});
+
+  @override
+  State<LeaveHistoryScreen> createState() => _LeaveHistoryScreenState();
+}
+
+class _LeaveHistoryScreenState extends State<LeaveHistoryScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<LeaveApplicationBloc>().add(
+        const LeaveApplicationEvent.getAllLeaveApplications(),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

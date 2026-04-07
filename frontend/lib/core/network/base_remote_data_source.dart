@@ -46,4 +46,10 @@ class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
 
     return fallback ?? 'Unknown error';
   }
+
+  List<T> mapList<T>(Object? data, T Function(Map<String, dynamic>) fromJson) {
+    return (data! as List<dynamic>)
+        .map((dynamic e) => fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
 }

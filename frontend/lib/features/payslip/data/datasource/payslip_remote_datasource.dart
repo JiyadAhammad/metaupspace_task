@@ -17,7 +17,7 @@ class PayslipRemoteDatasourceImpl extends BaseRemoteDataSourceImpl
   @override
   Future<ApiResponse<PaySlipResponse>> getPayslipData() {
     return safeApiCall(() async {
-      final Response<dynamic> res = await dio.get(PayslipEndpoints.dashboard);
+      final Response<dynamic> res = await dio.get(PayslipEndpoints.payslip);
 
       return ApiResponseMapper.fromJson(
         res.data as Map<String, dynamic>,

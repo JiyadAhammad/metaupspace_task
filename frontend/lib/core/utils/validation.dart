@@ -1,4 +1,12 @@
 class AppValidation {
+  static String? validateEmptyField(String? value, String message) {
+    if (value == null || value.isEmpty) {
+      return '$message is required';
+    }
+
+    return null;
+  }
+
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
