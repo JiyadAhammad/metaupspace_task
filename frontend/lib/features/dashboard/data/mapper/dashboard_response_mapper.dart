@@ -18,7 +18,6 @@ extension LeaveDetailsMapper on LeaveDetails {
     return LeaveDetailsEntity(
       totalLeaves: totalLeaves,
       leavesTaken: leavesTaken,
-      leavesPending: leavesPending,
       leavesAvailable: leavesAvailable,
     );
   }

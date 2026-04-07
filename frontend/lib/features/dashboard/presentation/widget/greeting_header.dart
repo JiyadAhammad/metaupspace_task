@@ -30,17 +30,17 @@ class GreetingHeader extends StatelessWidget {
             ],
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.notifications_none_rounded),
-          style: IconButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Theme.of(context).dividerColor),
-            ),
-          ),
-        ),
+        // IconButton(
+        //   onPressed: () {},
+        //   icon: const Icon(Icons.notifications_none_rounded),
+        //   style: IconButton.styleFrom(
+        //     backgroundColor: Theme.of(context).colorScheme.surface,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(12),
+        //       side: BorderSide(color: Theme.of(context).dividerColor),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

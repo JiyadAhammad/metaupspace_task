@@ -347,7 +347,7 @@ $EmployeeDetailsCopyWith<$Res> get employeeDetails {
 /// @nodoc
 mixin _$LeaveDetails {
 
-@JsonKey(name: 'total_leaves') int get totalLeaves;@JsonKey(name: 'leaves_taken') int get leavesTaken;@JsonKey(name: 'leaves_pending') int get leavesPending;@JsonKey(name: 'leaves_available') int get leavesAvailable;
+@JsonKey(name: 'total_leaves') int get totalLeaves;@JsonKey(name: 'leaves_taken') int get leavesTaken;@JsonKey(name: 'leaves_available') int get leavesAvailable;
 /// Create a copy of LeaveDetails
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -360,16 +360,16 @@ $LeaveDetailsCopyWith<LeaveDetails> get copyWith => _$LeaveDetailsCopyWithImpl<L
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LeaveDetails&&(identical(other.totalLeaves, totalLeaves) || other.totalLeaves == totalLeaves)&&(identical(other.leavesTaken, leavesTaken) || other.leavesTaken == leavesTaken)&&(identical(other.leavesPending, leavesPending) || other.leavesPending == leavesPending)&&(identical(other.leavesAvailable, leavesAvailable) || other.leavesAvailable == leavesAvailable));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LeaveDetails&&(identical(other.totalLeaves, totalLeaves) || other.totalLeaves == totalLeaves)&&(identical(other.leavesTaken, leavesTaken) || other.leavesTaken == leavesTaken)&&(identical(other.leavesAvailable, leavesAvailable) || other.leavesAvailable == leavesAvailable));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalLeaves,leavesTaken,leavesPending,leavesAvailable);
+int get hashCode => Object.hash(runtimeType,totalLeaves,leavesTaken,leavesAvailable);
 
 @override
 String toString() {
-  return 'LeaveDetails(totalLeaves: $totalLeaves, leavesTaken: $leavesTaken, leavesPending: $leavesPending, leavesAvailable: $leavesAvailable)';
+  return 'LeaveDetails(totalLeaves: $totalLeaves, leavesTaken: $leavesTaken, leavesAvailable: $leavesAvailable)';
 }
 
 
@@ -380,7 +380,7 @@ abstract mixin class $LeaveDetailsCopyWith<$Res>  {
   factory $LeaveDetailsCopyWith(LeaveDetails value, $Res Function(LeaveDetails) _then) = _$LeaveDetailsCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'total_leaves') int totalLeaves,@JsonKey(name: 'leaves_taken') int leavesTaken,@JsonKey(name: 'leaves_pending') int leavesPending,@JsonKey(name: 'leaves_available') int leavesAvailable
+@JsonKey(name: 'total_leaves') int totalLeaves,@JsonKey(name: 'leaves_taken') int leavesTaken,@JsonKey(name: 'leaves_available') int leavesAvailable
 });
 
 
@@ -397,11 +397,10 @@ class _$LeaveDetailsCopyWithImpl<$Res>
 
 /// Create a copy of LeaveDetails
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? totalLeaves = null,Object? leavesTaken = null,Object? leavesPending = null,Object? leavesAvailable = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? totalLeaves = null,Object? leavesTaken = null,Object? leavesAvailable = null,}) {
   return _then(_self.copyWith(
 totalLeaves: null == totalLeaves ? _self.totalLeaves : totalLeaves // ignore: cast_nullable_to_non_nullable
 as int,leavesTaken: null == leavesTaken ? _self.leavesTaken : leavesTaken // ignore: cast_nullable_to_non_nullable
-as int,leavesPending: null == leavesPending ? _self.leavesPending : leavesPending // ignore: cast_nullable_to_non_nullable
 as int,leavesAvailable: null == leavesAvailable ? _self.leavesAvailable : leavesAvailable // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -488,10 +487,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_pending')  int leavesPending, @JsonKey(name: 'leaves_available')  int leavesAvailable)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_available')  int leavesAvailable)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LeaveDetails() when $default != null:
-return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.leavesAvailable);case _:
+return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesAvailable);case _:
   return orElse();
 
 }
@@ -509,10 +508,10 @@ return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.le
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_pending')  int leavesPending, @JsonKey(name: 'leaves_available')  int leavesAvailable)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_available')  int leavesAvailable)  $default,) {final _that = this;
 switch (_that) {
 case _LeaveDetails():
-return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.leavesAvailable);case _:
+return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesAvailable);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -529,10 +528,10 @@ return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.le
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_pending')  int leavesPending, @JsonKey(name: 'leaves_available')  int leavesAvailable)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'total_leaves')  int totalLeaves, @JsonKey(name: 'leaves_taken')  int leavesTaken, @JsonKey(name: 'leaves_available')  int leavesAvailable)?  $default,) {final _that = this;
 switch (_that) {
 case _LeaveDetails() when $default != null:
-return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.leavesAvailable);case _:
+return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesAvailable);case _:
   return null;
 
 }
@@ -544,12 +543,11 @@ return $default(_that.totalLeaves,_that.leavesTaken,_that.leavesPending,_that.le
 @JsonSerializable()
 
 class _LeaveDetails implements LeaveDetails {
-  const _LeaveDetails({@JsonKey(name: 'total_leaves') required this.totalLeaves, @JsonKey(name: 'leaves_taken') required this.leavesTaken, @JsonKey(name: 'leaves_pending') required this.leavesPending, @JsonKey(name: 'leaves_available') required this.leavesAvailable});
+  const _LeaveDetails({@JsonKey(name: 'total_leaves') required this.totalLeaves, @JsonKey(name: 'leaves_taken') required this.leavesTaken, @JsonKey(name: 'leaves_available') required this.leavesAvailable});
   factory _LeaveDetails.fromJson(Map<String, dynamic> json) => _$LeaveDetailsFromJson(json);
 
 @override@JsonKey(name: 'total_leaves') final  int totalLeaves;
 @override@JsonKey(name: 'leaves_taken') final  int leavesTaken;
-@override@JsonKey(name: 'leaves_pending') final  int leavesPending;
 @override@JsonKey(name: 'leaves_available') final  int leavesAvailable;
 
 /// Create a copy of LeaveDetails
@@ -565,16 +563,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LeaveDetails&&(identical(other.totalLeaves, totalLeaves) || other.totalLeaves == totalLeaves)&&(identical(other.leavesTaken, leavesTaken) || other.leavesTaken == leavesTaken)&&(identical(other.leavesPending, leavesPending) || other.leavesPending == leavesPending)&&(identical(other.leavesAvailable, leavesAvailable) || other.leavesAvailable == leavesAvailable));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LeaveDetails&&(identical(other.totalLeaves, totalLeaves) || other.totalLeaves == totalLeaves)&&(identical(other.leavesTaken, leavesTaken) || other.leavesTaken == leavesTaken)&&(identical(other.leavesAvailable, leavesAvailable) || other.leavesAvailable == leavesAvailable));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalLeaves,leavesTaken,leavesPending,leavesAvailable);
+int get hashCode => Object.hash(runtimeType,totalLeaves,leavesTaken,leavesAvailable);
 
 @override
 String toString() {
-  return 'LeaveDetails(totalLeaves: $totalLeaves, leavesTaken: $leavesTaken, leavesPending: $leavesPending, leavesAvailable: $leavesAvailable)';
+  return 'LeaveDetails(totalLeaves: $totalLeaves, leavesTaken: $leavesTaken, leavesAvailable: $leavesAvailable)';
 }
 
 
@@ -585,7 +583,7 @@ abstract mixin class _$LeaveDetailsCopyWith<$Res> implements $LeaveDetailsCopyWi
   factory _$LeaveDetailsCopyWith(_LeaveDetails value, $Res Function(_LeaveDetails) _then) = __$LeaveDetailsCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'total_leaves') int totalLeaves,@JsonKey(name: 'leaves_taken') int leavesTaken,@JsonKey(name: 'leaves_pending') int leavesPending,@JsonKey(name: 'leaves_available') int leavesAvailable
+@JsonKey(name: 'total_leaves') int totalLeaves,@JsonKey(name: 'leaves_taken') int leavesTaken,@JsonKey(name: 'leaves_available') int leavesAvailable
 });
 
 
@@ -602,11 +600,10 @@ class __$LeaveDetailsCopyWithImpl<$Res>
 
 /// Create a copy of LeaveDetails
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totalLeaves = null,Object? leavesTaken = null,Object? leavesPending = null,Object? leavesAvailable = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? totalLeaves = null,Object? leavesTaken = null,Object? leavesAvailable = null,}) {
   return _then(_LeaveDetails(
 totalLeaves: null == totalLeaves ? _self.totalLeaves : totalLeaves // ignore: cast_nullable_to_non_nullable
 as int,leavesTaken: null == leavesTaken ? _self.leavesTaken : leavesTaken // ignore: cast_nullable_to_non_nullable
-as int,leavesPending: null == leavesPending ? _self.leavesPending : leavesPending // ignore: cast_nullable_to_non_nullable
 as int,leavesAvailable: null == leavesAvailable ? _self.leavesAvailable : leavesAvailable // ignore: cast_nullable_to_non_nullable
 as int,
   ));

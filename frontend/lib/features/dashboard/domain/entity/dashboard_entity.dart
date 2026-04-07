@@ -22,12 +22,10 @@ class LeaveDetailsEntity {
   LeaveDetailsEntity({
     required this.totalLeaves,
     required this.leavesTaken,
-    required this.leavesPending,
     required this.leavesAvailable,
   });
   final int totalLeaves;
   final int leavesTaken;
-  final int leavesPending;
   final int leavesAvailable;
 }
 

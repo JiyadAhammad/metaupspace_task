@@ -31,13 +31,13 @@ class BuildStatsGrid extends StatelessWidget {
         ),
         _StatCard(
           title: 'Leaves Taken',
-          value: '${entity.leaveDetails.leavesTaken} Days',
+          value: '${entity.attendance.absentDays} Days',
           icon: Icons.date_range,
           color: Colors.orange,
         ),
         _StatCard(
-          title: 'Pending Requests',
-          value: '${entity.leaveDetails.leavesPending}',
+          title: 'Average Working hours',
+          value: '${entity.attendance.averageWorkingHours} hrs',
           icon: Icons.pending_actions,
           color: Colors.blue,
         ),

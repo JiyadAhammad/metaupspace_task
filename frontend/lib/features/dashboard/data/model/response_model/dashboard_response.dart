@@ -21,7 +21,6 @@ abstract class LeaveDetails with _$LeaveDetails {
   const factory LeaveDetails({
     @JsonKey(name: 'total_leaves') required int totalLeaves,
     @JsonKey(name: 'leaves_taken') required int leavesTaken,
-    @JsonKey(name: 'leaves_pending') required int leavesPending,
     @JsonKey(name: 'leaves_available') required int leavesAvailable,
   }) = _LeaveDetails;
 

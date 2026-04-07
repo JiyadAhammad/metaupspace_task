@@ -34,7 +34,6 @@ _LeaveDetails _$LeaveDetailsFromJson(Map<String, dynamic> json) =>
     _LeaveDetails(
       totalLeaves: (json['total_leaves'] as num).toInt(),
       leavesTaken: (json['leaves_taken'] as num).toInt(),
-      leavesPending: (json['leaves_pending'] as num).toInt(),
       leavesAvailable: (json['leaves_available'] as num).toInt(),
     );
 
@@ -42,7 +41,6 @@ Map<String, dynamic> _$LeaveDetailsToJson(_LeaveDetails instance) =>
     <String, dynamic>{
       'total_leaves': instance.totalLeaves,
       'leaves_taken': instance.leavesTaken,
-      'leaves_pending': instance.leavesPending,
       'leaves_available': instance.leavesAvailable,
     };
 
