@@ -21,13 +21,107 @@ This project demonstrates a **full-stack implementation** of an employee dashboa
 👉 GitHub:  
 https://github.com/JiyadAhammad/metaupspace_task
 
+👉 Apk:  
+https://drive.google.com/file/d/1_4-pDZnh_a-FUtDOy8TjkIR56-dI2Kos/view?usp=sharing
+
 ---
 
 ## 🏗️ Project Structure
-metaupspace_task/
-│
-├── frontend/ # Flutter Application
-└── backend/ # FastAPI Server (Dockerized)
+
+```bash
+├── metaupspace_task/
+    ├── frontend/
+        ├── lib/ 
+        ├── features/
+        |     ├── feature_Name/
+        |     |     
+        |     |     ├── presentation/ # contains ui codes and states
+        |     |     |      ├── page.dart # UI page
+        |     |     |      ├── widgets/ # common widget for this feature
+        |     |     |          └── widget.dart 
+        |     |     |      └── Bloc/ # State management solution (Bloc, Provider)
+        |     |     |          ├── Bloc.dart
+        |     |     |          ├── event.dart 
+        |     |     |          └── state.dart
+        |     |     |             
+        |     |     ├── domain/
+        |     |     |      ├── entities/
+        |     |     |          └── entity.dart # entity connecting with usecase
+        |     |     |      ├── param/ 
+        |     |     |          └── request_param.dart # Request Param 
+        |     |     |      ├── repository/ 
+        |     |     |          └── abstract_repository.dart # Abstract interface 
+        |     |     |      └── usecase/ 
+        |     |     |          └── usecase.dart # Usecase connecting with presentation layer
+        |     |     |      
+        |     |     ├── data/ 
+        |     |     |      ├── data_sources/
+        |     |     |         ├── remote_data_source.dart # External Api,
+        |     |     |         └── local_data_source.dart # SQFlite, Hive
+        |     |     |      ├── mapper/
+        |     |     |         └── model_mapper.dart # Extension mapper to model to entity
+        |     |     |      ├── model/
+        |     |     |         └── feature_model.dart # Model classes
+        |     |     |      └── repository/ 
+        |     |     |         └── repository_implementation.dart # Implementation of Domain Abstract layer
+        |     |     └── feature_dependencies.dart    # feature Dependency Injection     
+        |     └── ...
+        ├── Core/
+        |     ├── app_config/  
+        |     |     ├── api_config.dart
+        |     |     ├── auth_session.dart
+        |     |     └── ...
+        |     ├── constants/  # App data Constants
+        |     |     ├── app_constants.dart
+        |     |     └── ...
+        |     ├── di/  # Core Dependency injection 
+        |     |     ├── injection.dart
+        |     |     └── ...
+        |     ├── environment/  # App env (dev, prod, staging) 
+        |     |     ├── app_env.dart
+        |     |     └── ...
+        |     ├── error/   # Common app errors and exceptions
+        |     |     ├── exception.dart
+        |     |     ├── failures.dart
+        |     |     └── ...
+        |     ├── extension/        # Extension methods
+        |     |     ├── string_extension.dart
+        |     |     ├── date_extension.dart
+        |     |     └── ...
+        |     ├── logger/    # app logs
+        |     |     ├── app_logger.dart
+        |     |     └── ...
+        |     ├── model/    # common app model
+        |     |     ├── models.dart
+        |     |     └── ...
+        |     ├── network/    # Network configuration (dio, interceptors, network endpoints)
+        |     |     ├── endpoints.dart
+        |     |     ├── interceptors.dart
+        |     |     ├── api_client.dart
+        |     |     └── ...
+        |     ├── routes/      # App Navigation
+        |     |     ├── app_route.dart
+        |     |     ├── route_names.dart
+        |     |     └── ...
+        |     ├── storage/      # App theme and colors
+        |     |     ├── local_storage_config.dart
+        |     |     └── ...
+        |     ├── theme/      # App theme and colors
+        |     |     ├── theme.dart
+        |     |     └── ...
+        |     ├── utils/    # utilities
+        |     |     ├── show_snackbar.dart
+        |     |     └── ...
+        |     ├── widgets/      # Common reuseable widgets across app
+        |     |     ├── loader.dart
+        |     |     ├── primary_button.dart
+        |     |     └── ...
+        |     └── ...  
+        ├── app.dart    # Application entry point
+        └── main.dart   # Dart entry point
+    ├── server/
+```
+
 
 ---
 
