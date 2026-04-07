@@ -11,7 +11,6 @@ from app.schema.auth_schema import AuthResponse
 class LeaveDetails(BaseModel):
     total_leaves: int
     leaves_taken: int
-    leaves_pending: int
     leaves_available: int
 
 
@@ -20,13 +19,6 @@ class Holiday(BaseModel):
     name: str
     date: datetime
     type: str
-
-
-class AttendanceSummary(BaseModel):
-    present_days: int
-    absent_days: int
-    total_working_days: int
-    average_working_hours: float
 
 
 class EmployeeDetails(BaseModel):
@@ -46,16 +38,8 @@ class EmployeeDetails(BaseModel):
 class DashboardData(BaseModel):
     leave_details: LeaveDetails
     holidays: List[Holiday]
-    attendance: AttendanceSummary
     employee_details: EmployeeDetails
 
-
-LEAVE_DETAILS = {
-    "total_leaves": 24,
-    "leaves_taken": 8,
-    "leaves_pending": 2,
-    "leaves_available": 14,
-}
 
 HOLIDAYS = [
     {
@@ -84,10 +68,3 @@ HOLIDAYS = [
         "type": "holiday",
     },
 ]
-
-ATTENDANCE = {
-    "present_days": 18,
-    "absent_days": 2,
-    "total_working_days": 20,
-    "average_working_hours": 8.6,
-}
