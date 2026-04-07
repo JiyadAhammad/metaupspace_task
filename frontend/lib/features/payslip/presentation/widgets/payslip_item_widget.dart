@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/payslip_entity.dart';
@@ -28,22 +29,50 @@ class PayslipItemCard extends StatelessWidget {
           ),
         ),
         title: AppText(payslipItem.month, variant: TextVariant.large),
-        subtitle: Row(
+        subtitle: Column(
+          crossAxisAlignment: .start,
           children: <Widget>[
-            AppText('ID: PAY-${payslipItem.id} ', variant: TextVariant.small),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: payslipItem.status.toLowerCase() == 'paid'
-                    ? Colors.green.withAlpha(70)
-                    : Colors.red.withAlpha(70),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                '• Status: ${payslipItem.status}',
-                variant: TextVariant.small,
-              ),
+            Row(
+              children: <Widget>[
+                AppText(
+                  'ID: PAY-${payslipItem.id} ',
+                  variant: TextVariant.small,
+                ),
+                if (getDeviceType(MediaQuery.of(context).size) !=
+                    DeviceScreenType.mobile)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: payslipItem.status.toLowerCase() == 'paid'
+                          ? Colors.green.withAlpha(70)
+                          : Colors.red.withAlpha(70),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: AppText(
+                      '• Status: ${payslipItem.status}',
+                      variant: TextVariant.small,
+                    ),
+                  ),
+              ],
             ),
+            if (getDeviceType(MediaQuery.of(context).size) ==
+                DeviceScreenType.mobile)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: payslipItem.status.toLowerCase() == 'paid'
+                      ? Colors.green.withAlpha(70)
+                      : Colors.red.withAlpha(70),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: AppText(payslipItem.status, variant: TextVariant.small),
+              ),
           ],
         ),
         trailing: AppText(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_text.dart';
@@ -61,24 +62,44 @@ class _ViewPaySlipsScreenState extends State<ViewPaySlipsScreen> {
                     mainAxisAlignment: .spaceBetween,
                     children: <Widget>[
                       const AppText('Recent Payslips', variant: TextVariant.h3),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                      if (getDeviceType(MediaQuery.of(context).size) !=
+                          DeviceScreenType.mobile)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(
+                              context,
+                            ).primaryColor.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: AppText(
+                            'Base: ₹${payslip.baseSalary.toStringAsFixed(2)}/month',
+                            variant: TextVariant.large,
+                          ),
                         ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).primaryColor.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: AppText(
-                          'Base: ₹${payslip.baseSalary.toStringAsFixed(2)}/month',
-                          variant: TextVariant.large,
-                        ),
-                      ),
                     ],
                   ),
+                  if (getDeviceType(MediaQuery.of(context).size) ==
+                      DeviceScreenType.mobile)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).primaryColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: AppText(
+                        'Base: ₹${payslip.baseSalary.toStringAsFixed(2)}/month',
+                        variant: TextVariant.large,
+                      ),
+                    ),
                   const SizedBox(height: 24),
                   Expanded(
                     child: Column(

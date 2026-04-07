@@ -75,13 +75,10 @@ class _BuildActionButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon),
-        label: AppText(label),
+        icon: Icon(icon, color: Colors.white),
+        label: AppText(label, variant: TextVariant.small, color: Colors.white),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(
-            context,
-          ).primaryColor.withValues(alpha: 0.1),
-          foregroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),

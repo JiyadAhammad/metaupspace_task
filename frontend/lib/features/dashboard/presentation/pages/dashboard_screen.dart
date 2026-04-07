@@ -83,21 +83,27 @@ class _BuildMobileLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: .start,
-        spacing: 16,
-        children: <Widget>[
-          GreetingHeader(entity: dashboardData),
+    return RefreshIndicator.adaptive(
+      onRefresh: () async {
+        context.read<DashboardBloc>().add(
+          const DashboardEvent.getDashboardData(),
+        );
+      },
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: .start,
+          spacing: 16,
+          children: <Widget>[
+            GreetingHeader(entity: dashboardData),
 
-          BuildStatsGrid(crossAxisCount: 1, entity: dashboardData),
+            BuildStatsGrid(crossAxisCount: 1, entity: dashboardData),
 
-          ExpandableWidget(entity: dashboardData),
-          ExpandableWidget(entity: dashboardData),
+            ExpandableWidget(entity: dashboardData),
 
-          BuildActionPanel(entity: dashboardData),
-        ],
+            BuildActionPanel(entity: dashboardData),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/utils/ui/greeting_util.dart';
 import '../../../../core/widgets/custom_text.dart';
@@ -32,21 +33,23 @@ class GreetingHeader extends StatelessWidget {
             ],
           ),
         ),
-        TextButton(
-          onPressed: () {
-            context.read<DashboardBloc>().add(
-              const DashboardEvent.getDashboardData(),
-            );
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Theme.of(context).dividerColor),
+        if (getDeviceType(MediaQuery.of(context).size) !=
+            DeviceScreenType.mobile)
+          TextButton(
+            onPressed: () {
+              context.read<DashboardBloc>().add(
+                const DashboardEvent.getDashboardData(),
+              );
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(color: Theme.of(context).dividerColor),
+              ),
             ),
+            child: const AppText('Refresh Dashboard', variant: TextVariant.h2),
           ),
-          child: const AppText('Refresh Dashboard', variant: TextVariant.h2),
-        ),
       ],
     );
   }
