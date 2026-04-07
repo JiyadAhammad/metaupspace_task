@@ -117,9 +117,39 @@ https://drive.google.com/file/d/1_4-pDZnh_a-FUtDOy8TjkIR56-dI2Kos/view?usp=shari
         |     |     ├── primary_button.dart
         |     |     └── ...
         |     └── ...  
-        ├── app.dart    # Application entry point
-        └── main.dart   # Dart entry point
+        ├── my_app.dart    # Application entry point
+        └── main_dev.dart   # Dart entry point dev
+        └── main_prod.dart   # Dart entry point prod
     ├── server/
+        ├── app/
+        |     |     
+        |     |     ├── api/v1/ # Api endpoint versions
+        |     |     |      ├── router.dart # Endpoint router
+        |     |     |      └── endpoint/ # Endpoints
+        |     |     |          ├── endpoint_1.py
+        |     |     |          ├── endpoint_2.py 
+        |     |     |          └── ...
+        |     |     |             
+        |     |     ├── Core/ # configs and Api depends (Token validation)
+        |     |     |      ├── config.py/
+        |     |     |      └── dependencies.py/ 
+        |     |     |      
+        |     |     ├── db/ # database setup
+        |     |     ├── schema/ # Pydantic model 
+        |     |     |      ├── schema_1.py
+        |     |     |      ├── schema_2.py  
+        |     |     |      └── ...  
+        |     |     |      
+        |     |     ├── service/ # Endpoint service
+        |     |     |      ├── service_1.py
+        |     |     |      ├── service_2.py  
+        |     |     |      └── ...  
+        |     |     |      
+        |     |     └── main.py    # python entry  
+        |     └── ...
+        ├── docker_compose.yml    # Docker composer setup
+        └── Dockerfile   # Docker setup, image building
+        └── requirement.txt   # Python dependencies
 ```
 
 
