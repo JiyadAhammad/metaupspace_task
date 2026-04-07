@@ -99,6 +99,7 @@ Run backend locally using Docker:
 ```bash
 cd backend
 docker-compose up --build
+```
 
 ---
 
@@ -110,20 +111,21 @@ Run Flutter locally using Real device or Emulator:
 cd frontend
 flutter pub get
 flutter run
+```
 
 
-
-📦Build APK (Dev)
+### 📦 Build APK (Dev)
 
 This project uses flavors for environment separation.
 
 ```bash
 flutter build apk --flavor dev -t lib/main_dev.dart --release
+```
 
-🔁 Code Generation
+### 🔁 Code Generation
 
 Used for Freezed & JSON serialization:
 
 ```bash
 flutter pub run build_runner watch --delete-conflicting-outputs
-
+```
