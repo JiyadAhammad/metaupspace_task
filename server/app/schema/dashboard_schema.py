@@ -21,6 +21,13 @@ class Holiday(BaseModel):
     type: str
 
 
+class AttendanceSummary(BaseModel):
+    present_days: int
+    absent_days: int
+    total_working_days: int
+    average_working_hours: float
+
+
 class EmployeeDetails(BaseModel):
     user_id: str
     is_active_user: bool
@@ -38,6 +45,7 @@ class EmployeeDetails(BaseModel):
 class DashboardData(BaseModel):
     leave_details: LeaveDetails
     holidays: List[Holiday]
+    attendance: AttendanceSummary
     employee_details: EmployeeDetails
 
 
@@ -68,3 +76,5 @@ HOLIDAYS = [
         "type": "holiday",
     },
 ]
+
+
