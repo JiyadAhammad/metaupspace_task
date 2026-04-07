@@ -278,7 +278,7 @@ as LeaveApplicationRequestParam,
 /// @nodoc
 mixin _$LeaveApplicationState {
 
- bool get isApply; bool get isApplied; bool get isLoading; List<LeaveApplicationEntity>? get leaveApplications; String? get successMessage; bool get isError; String? get errorMessage;
+ bool get isApply; bool get isApplied; bool get isLoading; List<LeaveApplicationEntity> get leaveApplications; String? get successMessage; bool get isError; String? get errorMessage;
 /// Create a copy of LeaveApplicationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -309,7 +309,7 @@ abstract mixin class $LeaveApplicationStateCopyWith<$Res>  {
   factory $LeaveApplicationStateCopyWith(LeaveApplicationState value, $Res Function(LeaveApplicationState) _then) = _$LeaveApplicationStateCopyWithImpl;
 @useResult
 $Res call({
- bool isApply, bool isApplied, bool isLoading, List<LeaveApplicationEntity>? leaveApplications, String? successMessage, bool isError, String? errorMessage
+ bool isApply, bool isApplied, bool isLoading, List<LeaveApplicationEntity> leaveApplications, String? successMessage, bool isError, String? errorMessage
 });
 
 
@@ -326,13 +326,13 @@ class _$LeaveApplicationStateCopyWithImpl<$Res>
 
 /// Create a copy of LeaveApplicationState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isApply = null,Object? isApplied = null,Object? isLoading = null,Object? leaveApplications = freezed,Object? successMessage = freezed,Object? isError = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isApply = null,Object? isApplied = null,Object? isLoading = null,Object? leaveApplications = null,Object? successMessage = freezed,Object? isError = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 isApply: null == isApply ? _self.isApply : isApply // ignore: cast_nullable_to_non_nullable
 as bool,isApplied: null == isApplied ? _self.isApplied : isApplied // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,leaveApplications: freezed == leaveApplications ? _self.leaveApplications : leaveApplications // ignore: cast_nullable_to_non_nullable
-as List<LeaveApplicationEntity>?,successMessage: freezed == successMessage ? _self.successMessage : successMessage // ignore: cast_nullable_to_non_nullable
+as bool,leaveApplications: null == leaveApplications ? _self.leaveApplications : leaveApplications // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplicationEntity>,successMessage: freezed == successMessage ? _self.successMessage : successMessage // ignore: cast_nullable_to_non_nullable
 as String?,isError: null == isError ? _self.isError : isError // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -420,7 +420,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity>? leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity> leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LeaveApplicationState() when $default != null:
 return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplications,_that.successMessage,_that.isError,_that.errorMessage);case _:
@@ -441,7 +441,7 @@ return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplica
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity>? leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity> leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _LeaveApplicationState():
 return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplications,_that.successMessage,_that.isError,_that.errorMessage);case _:
@@ -461,7 +461,7 @@ return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplica
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity>? leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isApply,  bool isApplied,  bool isLoading,  List<LeaveApplicationEntity> leaveApplications,  String? successMessage,  bool isError,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _LeaveApplicationState() when $default != null:
 return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplications,_that.successMessage,_that.isError,_that.errorMessage);case _:
@@ -476,19 +476,17 @@ return $default(_that.isApply,_that.isApplied,_that.isLoading,_that.leaveApplica
 
 
 class _LeaveApplicationState implements LeaveApplicationState {
-  const _LeaveApplicationState({this.isApply = false, this.isApplied = false, this.isLoading = false, final  List<LeaveApplicationEntity>? leaveApplications, this.successMessage, this.isError = false, this.errorMessage}): _leaveApplications = leaveApplications;
+  const _LeaveApplicationState({this.isApply = false, this.isApplied = false, this.isLoading = false, final  List<LeaveApplicationEntity> leaveApplications = const <LeaveApplicationEntity>[], this.successMessage, this.isError = false, this.errorMessage}): _leaveApplications = leaveApplications;
   
 
 @override@JsonKey() final  bool isApply;
 @override@JsonKey() final  bool isApplied;
 @override@JsonKey() final  bool isLoading;
- final  List<LeaveApplicationEntity>? _leaveApplications;
-@override List<LeaveApplicationEntity>? get leaveApplications {
-  final value = _leaveApplications;
-  if (value == null) return null;
+ final  List<LeaveApplicationEntity> _leaveApplications;
+@override@JsonKey() List<LeaveApplicationEntity> get leaveApplications {
   if (_leaveApplications is EqualUnmodifiableListView) return _leaveApplications;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_leaveApplications);
 }
 
 @override final  String? successMessage;
@@ -525,7 +523,7 @@ abstract mixin class _$LeaveApplicationStateCopyWith<$Res> implements $LeaveAppl
   factory _$LeaveApplicationStateCopyWith(_LeaveApplicationState value, $Res Function(_LeaveApplicationState) _then) = __$LeaveApplicationStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isApply, bool isApplied, bool isLoading, List<LeaveApplicationEntity>? leaveApplications, String? successMessage, bool isError, String? errorMessage
+ bool isApply, bool isApplied, bool isLoading, List<LeaveApplicationEntity> leaveApplications, String? successMessage, bool isError, String? errorMessage
 });
 
 
@@ -542,13 +540,13 @@ class __$LeaveApplicationStateCopyWithImpl<$Res>
 
 /// Create a copy of LeaveApplicationState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isApply = null,Object? isApplied = null,Object? isLoading = null,Object? leaveApplications = freezed,Object? successMessage = freezed,Object? isError = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isApply = null,Object? isApplied = null,Object? isLoading = null,Object? leaveApplications = null,Object? successMessage = freezed,Object? isError = null,Object? errorMessage = freezed,}) {
   return _then(_LeaveApplicationState(
 isApply: null == isApply ? _self.isApply : isApply // ignore: cast_nullable_to_non_nullable
 as bool,isApplied: null == isApplied ? _self.isApplied : isApplied // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,leaveApplications: freezed == leaveApplications ? _self._leaveApplications : leaveApplications // ignore: cast_nullable_to_non_nullable
-as List<LeaveApplicationEntity>?,successMessage: freezed == successMessage ? _self.successMessage : successMessage // ignore: cast_nullable_to_non_nullable
+as bool,leaveApplications: null == leaveApplications ? _self._leaveApplications : leaveApplications // ignore: cast_nullable_to_non_nullable
+as List<LeaveApplicationEntity>,successMessage: freezed == successMessage ? _self.successMessage : successMessage // ignore: cast_nullable_to_non_nullable
 as String?,isError: null == isError ? _self.isError : isError // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,

@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../features/auth/auth_injection.dart';
 import '../../features/auth/data/datasource/auth_local_datasource.dart';
 import '../../features/dashboard/dashboard_injection.dart';
+import '../../features/leave_application/leave_application_injection.dart';
 import '../../features/payslip/payslip_injection.dart';
 import '../app_config/auth_session.dart';
 import '../network/api_client.dart';
@@ -15,6 +16,7 @@ Future<void> setupInjector() async {
   await registerAuthDependencies();
   await registerDashboardDependencies();
   await registerPayslipDependencies();
+  await registerLeaveApplicationDependencies();
 }
 
 Future<void> _registerCore() async {

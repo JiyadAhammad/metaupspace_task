@@ -7,6 +7,7 @@ import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/dashboard/domain/entity/dashboard_entity.dart';
 import '../../features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
+import '../../features/leave_application/presentation/bloc/leave_application_bloc.dart';
 import '../../features/leave_application/presentation/pages/apply_leave_screen.dart';
 import '../../features/leave_application/presentation/pages/leave_history_screen.dart';
 import '../../features/payslip/presentation/bloc/payslip_bloc.dart';
@@ -55,13 +56,19 @@ class AppRouter {
         path: '/apply-leave',
         name: AppRouteNames.applyLeave,
         builder: (BuildContext context, GoRouterState state) =>
-            const ApplyLeaveScreen(),
+            BlocProvider<LeaveApplicationBloc>(
+              create: (_) => sl<LeaveApplicationBloc>(),
+              child: const ApplyLeaveScreen(),
+            ),
       ),
       GoRoute(
         path: '/leave-history',
         name: AppRouteNames.leaveHistory,
         builder: (BuildContext context, GoRouterState state) =>
-            const LeaveHistoryScreen(),
+            BlocProvider<LeaveApplicationBloc>(
+              create: (_) => sl<LeaveApplicationBloc>(),
+              child: const LeaveHistoryScreen(),
+            ),
       ),
       GoRoute(
         path: '/pay-slip',

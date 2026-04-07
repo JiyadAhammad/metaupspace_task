@@ -4,13 +4,6 @@ import '../../../../core/extension/date_extension.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../domain/entity/dashboard_entity.dart';
 
-class TestModel {
-  TestModel({required this.title, required this.trailing});
-
-  final String title;
-  final String trailing;
-}
-
 class ExpandableWidget extends StatelessWidget {
   const ExpandableWidget({super.key, required this.entity});
 

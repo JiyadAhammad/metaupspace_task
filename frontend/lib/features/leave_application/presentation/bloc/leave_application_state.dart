@@ -6,7 +6,8 @@ abstract class LeaveApplicationState with _$LeaveApplicationState {
     @Default(false) bool isApply,
     @Default(false) bool isApplied,
     @Default(false) bool isLoading,
-    List<LeaveApplicationEntity>? leaveApplications,
+    @Default(<LeaveApplicationEntity>[])
+    List<LeaveApplicationEntity> leaveApplications,
     String? successMessage,
     @Default(false) bool isError,
     String? errorMessage,

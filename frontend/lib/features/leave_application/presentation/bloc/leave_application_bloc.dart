@@ -41,14 +41,14 @@ class LeaveApplicationBloc
     result.fold(
       (Failure error) => emit(
         state.copyWith(
-          isLoading: false,
+          isApply: false,
           isError: true,
           errorMessage: error.message,
         ),
       ),
       (ApplyLeaveApplicationResult result) => emit(
         state.copyWith(
-          isLoading: false,
+          isApply: false,
           isApplied: true,
           successMessage: result.message,
         ),

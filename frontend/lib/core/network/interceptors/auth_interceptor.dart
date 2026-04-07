@@ -4,6 +4,8 @@ import '../../../features/auth/data/datasource/auth_local_datasource.dart';
 import '../../../features/auth/data/models/request_model/refresh_token/refresh_token_request.dart';
 import '../../../features/auth/data/models/response_model/auth_response/auth_response_model.dart';
 import '../../../features/auth/data/models/response_model/refresh_token_response/refresh_token_response.dart';
+import '../../app_config/auth_session.dart';
+import '../../di/injector.dart';
 import '../../errors/exceptions.dart';
 import '../endpoints/auth_endpoints.dart';
 
@@ -75,6 +77,7 @@ class AuthInterceptor extends Interceptor {
         return handler.resolve(response);
       } catch (e) {
         await tokenStorage.clearToken();
+        sl<AuthSession>().logout();
 
         return handler.next(err);
       }

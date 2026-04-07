@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_const.dart';
 import '../../../../core/utils/ui/commands/snackbar_commands.dart';
 import '../../../../core/utils/validation.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_dropdown.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../domain/param/leave_application_request_param.dart';
@@ -20,11 +22,11 @@ class ApplyLeaveScreen extends StatefulWidget {
 class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _typeController = TextEditingController();
   final TextEditingController _reasonController = TextEditingController();
 
   final ValueNotifier<DateTime?> _startDate = ValueNotifier<DateTime?>(null);
   final ValueNotifier<DateTime?> _endDate = ValueNotifier<DateTime?>(null);
+  final ValueNotifier<String?> _selectedType = ValueNotifier<String?>(null);
 
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
@@ -78,6 +80,15 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
       return;
     }
 
+    if (_selectedType.value == null) {
+      SnackbarCommand.show(
+        type: ToastType.warning,
+        title: 'Please select leave type',
+      );
+
+      return;
+    }
+
     if (_startDate.value == null) {
       SnackbarCommand.show(
         type: ToastType.warning,
@@ -96,7 +107,7 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
     }
 
     final LeaveApplicationRequestParam param = LeaveApplicationRequestParam(
-      type: _typeController.text.trim(),
+      type: _selectedType.value!,
       reason: _reasonController.text.trim(),
       startDate: _startDate.value!,
       endDate: _endDate.value!,
@@ -126,16 +137,19 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                     children: <Widget>[
                       const AppText('Leave Application'),
                       const SizedBox(height: 24),
-                      CustomTextField(
-                        controller: _typeController,
-                        hint: 'e.g., Casual Leave, Sick Leave',
-                        icon: Icons.category_outlined,
-                        validator: (String? value) =>
-                            AppValidation.validateEmptyField(
-                              value,
-                              'Leave Type',
-                            ),
+                      CustomDropdown(
+                        label: 'Leave type',
+                        hint: 'Select leave type',
+                        prefixIcon: const Icon(Icons.category_outlined),
+                        value: _selectedType.value,
+                        items: AppConst.leaveTypes,
+                        onChanged: (String? val) {
+                          _selectedType.value = val;
+                        },
+                        validator: (String? val) =>
+                            AppValidation.validateEmptyField(val, 'Leave type'),
                       ),
+
                       ListenableBuilder(
                         listenable: Listenable.merge(<Listenable?>[
                           _startDate,
@@ -183,9 +197,40 @@ class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
                             AppValidation.validateEmptyField(value, 'Reason'),
                       ),
                       const SizedBox(height: 32),
-                      AppButton(
-                        label: 'Submit Application',
-                        onPressed: _submit,
+                      BlocConsumer<LeaveApplicationBloc, LeaveApplicationState>(
+                        listener:
+                            (
+                              BuildContext context,
+                              LeaveApplicationState state,
+                            ) {
+                              if (state.isApplied) {
+                                _selectedType.value = _startDate.value =
+                                    _endDate.value = null;
+                                _reasonController.clear();
+                                SnackbarCommand.show(
+                                  type: ToastType.success,
+                                  title: state.successMessage ?? '',
+                                );
+                              }
+                              if (state.isError) {
+                                SnackbarCommand.show(
+                                  type: ToastType.error,
+                                  title: state.errorMessage ?? '',
+                                );
+                              }
+                            },
+                        builder:
+                            (
+                              BuildContext context,
+                              LeaveApplicationState state,
+                            ) {
+                              final bool isApplying = state.isApply;
+                              return AppButton(
+                                isLoading: isApplying,
+                                label: 'Submit Application',
+                                onPressed: _submit,
+                              );
+                            },
                       ),
                     ],
                   ),
