@@ -259,3 +259,12 @@ Used for Freezed & JSON serialization:
 ```bash
 flutter pub run build_runner watch --delete-conflicting-outputs
 ```
+
+---
+
+## 👨‍💻 Author
+
+**Jiyad Ahammad**
+Flutter Developer
+
+---
